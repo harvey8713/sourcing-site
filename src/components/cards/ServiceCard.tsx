@@ -1,19 +1,26 @@
+'use client';
+
 import UnsplashImage from '@/components/ui/UnsplashImage';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import type { Service } from '@/types';
 import { INDUSTRY_META } from '@/lib/constants';
 import { getServiceImage, unsplashUrl } from '@/lib/images';
+import { useT } from '@/i18n/dictionary-context';
+import { localizedHref } from '@/i18n/localized-link';
 
 interface ServiceCardProps {
   service: Service;
 }
 
 export default function ServiceCard({ service }: ServiceCardProps) {
+  const t = useT();
+  const { lang } = useParams();
   const industryMeta = INDUSTRY_META[service.industry];
   const image = getServiceImage(service.slug);
 
   return (
-    <Link href={`/services/${service.slug}`}>
+    <Link href={localizedHref(lang as string, `/services/${service.slug}`)}>
       <article className="rounded-xl overflow-hidden border border-border bg-surface shadow-sm transition hover:shadow-md">
         {/* Image thumbnail */}
         <div className="relative h-48 w-full bg-secondary/5">
@@ -79,9 +86,14 @@ export default function ServiceCard({ service }: ServiceCardProps) {
             )}
           </div>
 
-          {/* Price */}
-          {service.price && (
-            <p className="text-lg font-bold text-primary">{service.price}</p>
+          {/* Price range */}
+          {service.tiers && (
+            <div className="flex items-baseline gap-1.5">
+              <span className="text-xs text-text-secondary">{t('service_card.from')}</span>
+              <span className="text-lg font-bold text-primary">{service.tiers[0].price}</span>
+              <span className="text-xs text-text-secondary">{t('service_card.price_separator')}</span>
+              <span className="text-sm font-semibold text-text-secondary">{service.tiers[2].price}</span>
+            </div>
           )}
         </div>
       </article>

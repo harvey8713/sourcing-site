@@ -9,7 +9,7 @@ export function generateServiceSchema(service: Service) {
     description: service.description,
     provider: {
       '@type': 'Organization',
-      name: 'Supply Chain Due Diligence',
+      name: SITE.name,
       url: SITE.domain,
       description: SITE.tagline,
     },

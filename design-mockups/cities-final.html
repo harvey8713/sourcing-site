@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cities FINAL — Withlocals Style</title>
+<style>
+  :root {
+    --gold: #B8860B; --gold-hover: #9A7209; --navy: #1A1A2E;
+    --bg: #F5F5F0; --white: #FFFFFF; --green: #2E7D32;
+    --text: #1A1A2E; --text-secondary: #5A5A6E;
+    --border: #E0DDD8; --radius-lg: 14px; --radius-xl: 18px;
+    --shadow: 0 2px 12px rgba(0,0,0,0.06);
+    --shadow-lg: 0 8px 30px rgba(0,0,0,0.10);
+    --shadow-xl: 0 20px 60px rgba(0,0,0,0.12);
+    --max-width: 1200px;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .container{max-width:var(--max-width);margin:0 auto;padding:0 24px;}
+
+  /* NAV */
+  .nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:68px;max-width:var(--max-width);margin:0 auto;padding:0 24px;}
+  .nav-logo{font-size:1.35rem;font-weight:800;color:var(--navy);letter-spacing:-0.5px;}
+  .nav-logo span{color:var(--gold);}
+  .nav-links{display:flex;align-items:center;gap:32px;}
+  .nav-links a{text-decoration:none;color:var(--text-secondary);font-size:0.9rem;font-weight:500;}
+  .nav-links a:hover{color:var(--text);}
+  .nav-links a.active{color:var(--gold);font-weight:600;}
+  .btn{display:inline-flex;align-items:center;gap:6px;padding:12px 24px;border-radius:8px;font-weight:600;font-size:0.9rem;text-decoration:none;cursor:pointer;border:none;transition:all 0.2s;font-family:inherit;}
+  .btn-primary{background:var(--gold);color:white;}
+  .btn-primary:hover{background:var(--gold-hover);}
+
+  /* ─── HERO ─── */
+  .hero{position:relative;overflow:hidden;background:linear-gradient(160deg,var(--navy) 0%,#2a2a4e 50%,var(--navy) 100%);color:white;padding:80px 0 36px;}
+  .hero::before{content:'';position:absolute;inset:0;background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(255,255,255,0.03)" d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"/></svg>') bottom/cover no-repeat;}
+  .hero-inner{max-width:var(--max-width);margin:0 auto;padding:0 24px;position:relative;z-index:1;}
+  .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(184,134,11,0.2);border:1px solid rgba(184,134,11,0.3);color:var(--gold);padding:6px 16px;border-radius:100px;font-size:0.85rem;font-weight:600;margin-bottom:20px;}
+  .hero-badge::before{content:'●';font-size:8px;color:var(--green);}
+  .hero h1{font-size:2.8rem;font-weight:800;line-height:1.15;margin-bottom:14px;letter-spacing:-1px;}
+  .hero p{font-size:1.05rem;color:rgba(255,255,255,0.6);max-width:520px;line-height:1.7;}
+
+  /* ─── FILTER TABS (Withlocals-style: clean, full-width) ─── */
+  .filter-section{padding:32px 0 0;}
+  .filter-tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;justify-content:center;flex-wrap:wrap;}
+  .filter-tab{padding:10px 22px;border-radius:100px;font-size:0.84rem;font-weight:600;cursor:pointer;border:1.5px solid var(--border);background:white;color:var(--text-secondary);white-space:nowrap;transition:all 0.2s;font-family:inherit;}
+  .filter-tab:hover{border-color:var(--gold);color:var(--gold);}
+  .filter-tab.active{background:var(--gold);color:white;border-color:var(--gold);}
+
+  /* ─── CITY CARDS GRID (Withlocals-style) ─── */
+  .city-grid{padding:40px 0 80px;display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+
+  .city-card{
+    position:relative;border-radius:var(--radius-xl);overflow:hidden;
+    height:380px;cursor:pointer;text-decoration:none;color:white;
+    transition:transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94),box-shadow 0.35s;
+    display:block;
+  }
+  .city-card:hover{transform:scale(1.025);box-shadow:var(--shadow-xl);}
+  .city-card::after{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(to top,rgba(0,0,0,0.6) 0%,rgba(0,0,0,0.15) 45%,rgba(0,0,0,0.02) 100%);
+    transition:background 0.3s;
+  }
+  .city-card:hover::after{background:linear-gradient(to top,rgba(0,0,0,0.65) 0%,rgba(0,0,0,0.2) 45%,rgba(0,0,0,0.04) 100%);}
+  .city-card-body{position:absolute;bottom:28px;left:28px;right:28px;z-index:1;}
+  .city-card-body .cc-name{font-size:1.75rem;font-weight:800;line-height:1.2;margin-bottom:4px;text-shadow:0 1px 4px rgba(0,0,0,0.15);}
+  .city-card-body .cc-subtitle{font-size:0.95rem;opacity:0.85;line-height:1.35;}
+  .city-card-body .cc-count{font-size:0.8rem;opacity:0.6;margin-top:8px;}
+  .city-card-badge{position:absolute;top:18px;left:18px;z-index:1;background:rgba(255,255,255,0.92);color:var(--text);padding:5px 14px;border-radius:100px;font-size:0.72rem;font-weight:700;backdrop-filter:blur(4px);}
+
+  /* ─── FUN FACTS (light section) ─── */
+  .fun-facts-section{padding:72px 0;background:white;}
+  .section-header{text-align:center;margin-bottom:44px;}
+  .section-header .eyebrow{display:inline-block;color:var(--gold);font-weight:700;font-size:0.78rem;text-transform:uppercase;letter-spacing:2px;margin-bottom:10px;}
+  .section-header h2{font-size:2rem;font-weight:800;letter-spacing:-0.5px;}
+  .fun-facts-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+  .fun-fact{padding:24px 20px;background:var(--bg);border-radius:var(--radius-lg);border:1px solid var(--border);transition:all 0.2s;}
+  .fun-fact:hover{box-shadow:var(--shadow);border-color:transparent;transform:translateY(-1px);}
+  .fun-fact .ff-icon{font-size:1.6rem;margin-bottom:10px;}
+  .fun-fact h5{font-size:0.9rem;font-weight:700;margin-bottom:6px;}
+  .fun-fact p{font-size:0.8rem;color:var(--text-secondary);line-height:1.5;}
+
+  /* ─── CTA ─── */
+  .cta-section{background:var(--navy);color:white;text-align:center;border-radius:var(--radius-xl);padding:64px 48px;margin:0 24px 80px;}
+  .cta-section h2{font-size:2rem;font-weight:800;margin-bottom:12px;}
+  .cta-section p{color:rgba(255,255,255,0.6);max-width:520px;margin:0 auto 28px;font-size:1.05rem;}
+
+  /* ─── FOOTER ─── */
+  footer{background:var(--navy);color:white;padding:64px 0 32px;}
+  .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;max-width:var(--max-width);margin:0 auto;padding:0 24px;}
+  .footer-brand p{color:rgba(255,255,255,0.45);font-size:0.88rem;line-height:1.65;margin-top:14px;max-width:280px;}
+  .footer-col h4{font-size:0.72rem;text-transform:uppercase;letter-spacing:1.5px;color:rgba(255,255,255,0.35);margin-bottom:18px;}
+  .footer-col a{display:block;color:rgba(255,255,255,0.6);text-decoration:none;font-size:0.88rem;padding:3px 0;}
+  .footer-col a:hover{color:var(--gold);}
+  .footer-bottom{max-width:var(--max-width);margin:48px auto 0;padding:24px 24px 0;border-top:1px solid rgba(255,255,255,0.08);text-align:center;color:rgba(255,255,255,0.3);font-size:0.8rem;}
+
+  @media (max-width:900px){
+    .city-grid{grid-template-columns:repeat(2,1fr);}
+    .fun-facts-grid{grid-template-columns:repeat(2,1fr);}
+    .nav-links{display:none;}
+    .hero h1{font-size:2rem;}
+  }
+  @media (max-width:600px){
+    .city-grid{grid-template-columns:1fr;}
+    .city-card{height:280px;}
+    .fun-facts-grid{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-logo">Sourcing<span>Site</span></div>
+    <div class="nav-links">
+      <a href="#">Services</a>
+      <a href="#" class="active">Explore China</a>
+      <a href="#">How It Works</a>
+      <a href="#">Industries</a>
+      <a href="#">Guides</a>
+      <a href="#">About</a>
+      <a href="#" class="btn btn-primary" style="color:white;">Get Started</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">20+ cities · 7 industry clusters</div>
+    <h1>Where China makes<br>everything.</h1>
+    <p>From the electronics corridors of Shenzhen to the coffee mountains of Yunnan — every city has a supply chain story. Find where your product belongs.</p>
+  </div>
+</header>
+
+<!-- FILTERS -->
+<div class="filter-section">
+  <div class="container">
+    <div class="filter-tabs">
+      <button class="filter-tab active" data-filter="all">All Cities</button>
+      <button class="filter-tab" data-filter="electronics">Electronics</button>
+      <button class="filter-tab" data-filter="textile">Apparel & Textile</button>
+      <button class="filter-tab" data-filter="consumer">Consumer Goods</button>
+      <button class="filter-tab" data-filter="furniture">Furniture</button>
+      <button class="filter-tab" data-filter="food">Food & Beverage</button>
+      <button class="filter-tab" data-filter="specialty">Specialty Towns</button>
+    </div>
+  </div>
+</div>
+
+<!-- CITY CARDS -->
+<div class="container city-grid">
+
+  <!-- Shenzhen -->
+  <a href="#" class="city-card" data-categories="electronics" style="background:linear-gradient(135deg,#1a3a4a,#2980b9);">
+    <span class="city-card-badge">Electronics</span>
+    <div class="city-card-body"><div class="cc-name">Shenzhen</div><div class="cc-subtitle">The Silicon Valley of hardware — Huaqiangbei, IoT, PCBs</div><div class="cc-count">4 services</div></div>
+  </a>
+
+  <!-- Guangzhou -->
+  <a href="#" class="city-card" data-categories="textile consumer" style="background:linear-gradient(135deg,#3d1f5e,#8e44ad);">
+    <span class="city-card-badge">Textile & Trade</span>
+    <div class="city-card-body"><div class="cc-name">Guangzhou</div><div class="cc-subtitle">Canton Fair, Zhongda fabric market, global garment hub</div><div class="cc-count">3 services</div></div>
+  </a>
+
+  <!-- Dongguan -->
+  <a href="#" class="city-card" data-categories="electronics specialty" style="background:linear-gradient(135deg,#1a1a2e,#2c3e50);">
+    <span class="city-card-badge">Precision Mfg</span>
+    <div class="city-card-body"><div class="cc-name">Dongguan</div><div class="cc-subtitle">Mold-making, CNC machining, injection molding</div><div class="cc-count">2 services</div></div>
+  </a>
+
+  <!-- Yiwu -->
+  <a href="#" class="city-card" data-categories="consumer" style="background:linear-gradient(135deg,#7a3800,#e67e22);">
+    <span class="city-card-badge">Commodities</span>
+    <div class="city-card-body"><div class="cc-name">Yiwu</div><div class="cc-subtitle">World's largest wholesale market — 75,000+ booths</div><div class="cc-count">2 services</div></div>
+  </a>
+
+  <!-- Foshan -->
+  <a href="#" class="city-card" data-categories="furniture" style="background:linear-gradient(135deg,#641e16,#c0392b);">
+    <span class="city-card-badge">Furniture</span>
+    <div class="city-card-body"><div class="cc-name">Foshan</div><div class="cc-subtitle">Global furniture capital — Lecong's 3M sqm market</div><div class="cc-count">1 service</div></div>
+  </a>
+
+  <!-- Yunnan -->
+  <a href="#" class="city-card" data-categories="food" style="background:linear-gradient(135deg,#145a32,#27ae60);">
+    <span class="city-card-badge">Coffee & Tea</span>
+    <div class="city-card-body"><div class="cc-name">Yunnan</div><div class="cc-subtitle">95% of China's coffee, Pu'er tea heartland</div><div class="cc-count">1 service</div></div>
+  </a>
+
+  <!-- Shaoxing -->
+  <a href="#" class="city-card" data-categories="textile" style="background:linear-gradient(135deg,#4a235a,#af7ac5);">
+    <span class="city-card-badge">Textile</span>
+    <div class="city-card-body"><div class="cc-name">Shaoxing</div><div class="cc-subtitle">World's largest fabric market — 30,000+ stalls</div><div class="cc-count">1 service</div></div>
+  </a>
+
+  <!-- Yongkang -->
+  <a href="#" class="city-card" data-categories="specialty" style="background:linear-gradient(135deg,#2c3e50,#34495e);">
+    <span class="city-card-badge">Hardware</span>
+    <div class="city-card-body"><div class="cc-name">Yongkang</div><div class="cc-subtitle">Hardware capital — thermos, power tools, kitchenware</div><div class="cc-count">1 service</div></div>
+  </a>
+
+  <!-- Ningxia -->
+  <a href="#" class="city-card" data-categories="food" style="background:linear-gradient(135deg,#7d6608,#d4a853);">
+    <span class="city-card-badge">Superfoods</span>
+    <div class="city-card-body"><div class="cc-name">Ningxia</div><div class="cc-subtitle">Goji berry capital & emerging wine region</div><div class="cc-count">1 service</div></div>
+  </a>
+
+  <!-- Sichuan -->
+  <a href="#" class="city-card" data-categories="food" style="background:linear-gradient(135deg,#a93226,#e74c3c);">
+    <span class="city-card-badge">Spice Route</span>
+    <div class="city-card-body"><div class="cc-name">Sichuan / Chongqing</div><div class="cc-subtitle">Pepper, sauces, hot pot bases — flavor engine of Chinese cuisine</div><div class="cc-count">1 service</div></div>
+  </a>
+
+  <!-- Ningbo -->
+  <a href="#" class="city-card" data-categories="specialty" style="background:linear-gradient(135deg,#154360,#2471a3);">
+    <span class="city-card-badge">Plastics & Port</span>
+    <div class="city-card-body"><div class="cc-name">Ningbo</div><div class="cc-subtitle">Plastics, hardware, home appliances — major export port</div><div class="cc-count">Coming soon</div></div>
+  </a>
+
+  <!-- Zhuji -->
+  <a href="#" class="city-card" data-categories="specialty textile" style="background:linear-gradient(135deg,#5b2c6f,#8e44ad);">
+    <span class="city-card-badge">Sock Capital</span>
+    <div class="city-card-body"><div class="cc-name">Zhuji</div><div class="cc-subtitle">1/3 of the world's socks — plus pearl processing</div><div class="cc-count">Coming soon</div></div>
+  </a>
+
+</div>
+
+<!-- FUN FACTS -->
+<section class="fun-facts-section">
+  <div class="container">
+    <div class="section-header">
+      <div class="eyebrow">Did You Know</div>
+      <h2>China's supply chain by the numbers</h2>
+    </div>
+    <div class="fun-facts-grid">
+      <div class="fun-fact"><div class="ff-icon">🧦</div><h5>1/3 of the world's socks</h5><p>From one town: Zhuji, Zhejiang.</p></div>
+      <div class="fun-fact"><div class="ff-icon">🀄</div><h5>80% of mahjong tiles</h5><p>Dongyang dominates global production.</p></div>
+      <div class="fun-fact"><div class="ff-icon">🔌</div><h5>60,000+ electronics stalls</h5><p>Huaqiangbei > Akihabara + Yongsan.</p></div>
+      <div class="fun-fact"><div class="ff-icon">🪑</div><h5>3 million sqm of furniture</h5><p>Lecong, Foshan — 180+ showroom buildings.</p></div>
+      <div class="fun-fact"><div class="ff-icon">🏪</div><h5>5 months to see it all</h5><p>Yiwu: 75,000+ booths × 1 min each.</p></div>
+      <div class="fun-fact"><div class="ff-icon">☕</div><h5>95% of Chinese coffee</h5><p>Grown in Yunnan — 14th largest globally.</p></div>
+      <div class="fun-fact"><div class="ff-icon">💰</div><h5>30-40% cheaper</h5><p>Specialty towns beat generalist factories.</p></div>
+      <div class="fun-fact"><div class="ff-icon">🌏</div><h5>50%+ global share</h5><p>Some towns produce half the world's supply.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section>
+  <div class="container">
+    <div class="cta-section">
+      <h2>Not sure which city is right for your product?</h2>
+      <p>Tell us what you're sourcing and we'll recommend the right manufacturing hub — and take you there.</p>
+      <a href="#" class="btn btn-primary" style="padding:16px 32px;font-size:1rem;">Get a Free City Recommendation →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-logo" style="color:white;">Sourcing<span style="color:var(--gold)">Site</span></div>
+      <p>On-the-ground factory sourcing and supplier verification across China.</p>
+    </div>
+    <div class="footer-col"><h4>Services</h4><a href="#">All Services</a><a href="#">Audits</a><a href="#">Custom Trips</a></div>
+    <div class="footer-col"><h4>Explore</h4><a href="#">Cities</a><a href="#">Industries</a><a href="#">Guides</a></div>
+    <div class="footer-col"><h4>Company</h4><a href="#">About</a><a href="#">Contact</a><a href="#">FAQ</a></div>
+  </div>
+  <div class="footer-bottom">&copy; 2026 SourcingSite. All rights reserved.</div>
+</footer>
+
+<script>
+  document.querySelectorAll('.filter-tab').forEach(tab=>{
+    tab.addEventListener('click',()=>{
+      document.querySelectorAll('.filter-tab').forEach(t=>t.classList.remove('active'));
+      tab.classList.add('active');
+      const f = tab.dataset.filter;
+      document.querySelectorAll('.city-card').forEach(card=>{
+        card.style.display = (f==='all' || card.dataset.categories.includes(f)) ? 'block' : 'none';
+      });
+    });
+  });
+</script>
+</body>
+</html>

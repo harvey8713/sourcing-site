@@ -1,19 +1,107 @@
 import type { Service } from '@/types';
 
+/* ------------------------------------------------------------------ */
+/*  Common tier includes (used as base, customised per service below)  */
+/* ------------------------------------------------------------------ */
+
+const LITE_COMMON = [
+  'Pre-trip factory shortlist (5–8 vetted suppliers)',
+  'Bilingual interpreter + private car + supply chain liaison + platform supervisor',
+  'Guided factory visits with management introductions',
+  'Airport pickup & drop-off',
+  '10-page trip summary with factory profiles & photos',
+  '14-day post-trip WeChat / email support',
+];
+
+const STANDARD_COMMON = [
+  'Deep supplier screening (50+ factories vetted pre-trip)',
+  'Bilingual interpreter + private car + supply chain liaison + platform supervisor',
+  'On-site factory audits at 5–8 facilities — photos, videos, QC documentation',
+  'Farewell dinner with liaison & supervisor',
+  'Airport pickup & drop-off',
+  '30–40 page due diligence report — supplier scoring matrix, pricing analysis, quality assessment',
+  '30-day dedicated WeChat group — negotiation & contract review support',
+];
+
+const PREMIUM_COMMON_WITH_WELCOME = [
+  'Elite supplier screening (80–120 factories, credit & litigation checks)',
+  'Full team + industry specialist advisor',
+  'On-site audits at 8–12 facilities — financial health & capacity assessments',
+  'Welcome dinner + executive farewell dinner with factory owners',
+  'Airport pickup & drop-off + full-itinerary business vehicle',
+  '50–60 page deep-dive report — cost breakdown, risk map, strategy',
+  '60-day priority support — direct line to supply chain lead',
+  'Free sample consolidation & shipping (first 5 kg)',
+];
+
+const PREMIUM_COMMON_NO_WELCOME = [
+  'Elite supplier screening (80–120 factories, credit & litigation checks)',
+  'Full team + industry specialist advisor',
+  'On-site audits at 8–12 facilities — financial health & capacity assessments',
+  'Executive farewell dinner with factory owners',
+  'Airport pickup & drop-off + full-itinerary business vehicle',
+  '50–60 page deep-dive report — cost breakdown, risk map, strategy',
+  '60-day priority support — direct line to supply chain lead',
+  'Free sample consolidation & shipping (first 5 kg)',
+];
+
+/* Helper – returns the right premium common list based on days */
+function premiumCommon(days: number) {
+  return days >= 5 ? PREMIUM_COMMON_WITH_WELCOME : PREMIUM_COMMON_NO_WELCOME;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Services                                                            */
+/* ------------------------------------------------------------------ */
+
 export const services: Service[] = [
+  /* ================================================================ */
+  /*  1. Shenzhen Electronics Sprint                                   */
+  /* ================================================================ */
   {
     slug: 'shenzhen-electronics-sprint',
     title: 'Shenzhen Electronics Sprint',
-    subtitle: '5-day deep dive into Huaqiangbei, OEM factories, and the Shenzhen hardware ecosystem',
+    subtitle:
+      '5-day deep dive into Huaqiangbei, OEM factories, and the Shenzhen hardware ecosystem',
     category: 'Electronics Sprint',
     industry: 'electronics',
     location: 'Shenzhen, Guangdong',
     cities: ['Shenzhen'],
     durationDays: 5,
     durationLabel: '5 days',
-    price: '$3,200',
-    premiumPrice: '$4,800',
-    premiumLabel: 'Premium (includes PCB reverse-engineering report)',
+    price: '$6,999',
+    tiers: [
+      {
+        slug: 'lite',
+        name: 'LITE',
+        label: 'Basic guided access',
+        price: '$5,199',
+        includes: [
+          ...LITE_COMMON.map((s) => s.replace('5–8 vetted suppliers', '5–8 Shenzhen electronics factories')),
+          'Brief Huaqiangbei market walkthrough',
+        ],
+      },
+      {
+        slug: 'standard',
+        name: 'STANDARD',
+        label: 'Full-service factory audit',
+        price: '$6,999',
+        includes: [
+          ...STANDARD_COMMON,
+          'Huaqiangbei component market guided tour with sourcing engineer',
+        ],
+      },
+      {
+        slug: 'premium',
+        name: 'PREMIUM',
+        label: 'White-glove concierge',
+        price: '$11,899',
+        includes: [
+          ...premiumCommon(5),
+          'PCB reverse-engineering analysis report',
+        ],
+      },
+    ],
     description:
       'Visit Shenzhen electronics factories and Huaqiangbei markets with an experienced sourcing agent. Factory audits, supplier verification, and component sourcing in China’s hardware capital.',
     longDescription:
@@ -63,17 +151,53 @@ export const services: Service[] = [
     ],
     imageColor: 'bg-blue-900',
   },
+
+  /* ================================================================ */
+  /*  2. Shenzhen-Dongguan Hardware Audit                             */
+  /* ================================================================ */
   {
     slug: 'shenzhen-dongguan-hardware-audit',
     title: 'Shenzhen-Dongguan Hardware Audit',
-    subtitle: '5-day industrial hardware, mold-making, and precision manufacturing due diligence',
+    subtitle:
+      '5-day industrial hardware, mold-making, and precision manufacturing due diligence',
     category: 'Hardware Audit',
     industry: 'electronics',
     location: 'Shenzhen & Dongguan, Guangdong',
     cities: ['Shenzhen', 'Dongguan'],
     durationDays: 5,
     durationLabel: '5 days',
-    price: '$3,500',
+    price: '$6,999',
+    tiers: [
+      {
+        slug: 'lite',
+        name: 'LITE',
+        label: 'Basic guided access',
+        price: '$5,199',
+        includes: [
+          ...LITE_COMMON,
+        ],
+      },
+      {
+        slug: 'standard',
+        name: 'STANDARD',
+        label: 'Full-service factory audit',
+        price: '$6,999',
+        includes: [
+          ...STANDARD_COMMON,
+          'Mold-making and CNC machining facility deep-dives',
+        ],
+      },
+      {
+        slug: 'premium',
+        name: 'PREMIUM',
+        label: 'White-glove concierge',
+        price: '$11,899',
+        includes: [
+          ...premiumCommon(5),
+          'Mold flow analysis & material traceability assessment',
+        ],
+      },
+    ],
     description:
       'Audit precision manufacturing, mold-making, and industrial hardware suppliers across Shenzhen and Dongguan. Detailed facility inspections and financial health checks.',
     longDescription:
@@ -122,17 +246,53 @@ export const services: Service[] = [
     ],
     imageColor: 'bg-blue-800',
   },
+
+  /* ================================================================ */
+  /*  3. New Energy Supply Chain                                      */
+  /* ================================================================ */
   {
     slug: 'new-energy-supply-chain',
     title: 'New Energy Supply Chain',
-    subtitle: '3-day audit of lithium battery, solar, and EV component suppliers in the Pearl River Delta',
+    subtitle:
+      '3-day audit of lithium battery, solar, and EV component suppliers in the Pearl River Delta',
     category: 'New Energy',
     industry: 'electronics',
     location: 'Shenzhen & Pearl River Delta',
     cities: ['Shenzhen', 'Dongguan', 'Huizhou'],
     durationDays: 3,
     durationLabel: '3 days',
-    price: '$3,800',
+    price: '$4,999',
+    tiers: [
+      {
+        slug: 'lite',
+        name: 'LITE',
+        label: 'Basic guided access',
+        price: '$3,699',
+        includes: [
+          ...LITE_COMMON,
+        ],
+      },
+      {
+        slug: 'standard',
+        name: 'STANDARD',
+        label: 'Full-service factory audit',
+        price: '$4,999',
+        includes: [
+          ...STANDARD_COMMON,
+          'Safety certification verification (UN38.3, IEC, UL)',
+        ],
+      },
+      {
+        slug: 'premium',
+        name: 'PREMIUM',
+        label: 'White-glove concierge',
+        price: '$8,499',
+        includes: [
+          ...premiumCommon(3),
+          'Supply chain conflict mineral compliance audit',
+        ],
+      },
+    ],
     description:
       'Specialized due diligence for lithium battery, solar panel, and EV component suppliers. Safety certification verification and production capability assessment.',
     longDescription:
@@ -180,19 +340,53 @@ export const services: Service[] = [
     ],
     imageColor: 'bg-green-800',
   },
+
+  /* ================================================================ */
+  /*  4. Yiwu Commodity Sprint                                        */
+  /* ================================================================ */
   {
     slug: 'yiwu-commodity-sprint',
     title: 'Yiwu Commodity Sprint',
-    subtitle: '3-day guided sourcing through the world’s largest wholesale market for consumer goods',
+    subtitle:
+      '3-day guided sourcing through the world’s largest wholesale market for consumer goods',
     category: 'Commodity Sprint',
     industry: 'consumer-goods',
     location: 'Yiwu, Zhejiang',
     cities: ['Yiwu'],
     durationDays: 3,
     durationLabel: '3 days',
-    price: '$2,200',
-    premiumPrice: '$3,200',
-    premiumLabel: 'Premium (includes 6-month supplier communication follow-up)',
+    price: '$4,799',
+    tiers: [
+      {
+        slug: 'lite',
+        name: 'LITE',
+        label: 'Basic guided access',
+        price: '$3,599',
+        includes: [
+          ...LITE_COMMON.map((s) => s.replace('factory', 'market booth')),
+        ],
+      },
+      {
+        slug: 'standard',
+        name: 'STANDARD',
+        label: 'Full-service factory audit',
+        price: '$4,799',
+        includes: [
+          ...STANDARD_COMMON.map((s) => s.replace('factory', 'supplier')),
+          'District-by-district market route optimization',
+        ],
+      },
+      {
+        slug: 'premium',
+        name: 'PREMIUM',
+        label: 'White-glove concierge',
+        price: '$7,999',
+        includes: [
+          ...premiumCommon(3),
+          'Factory-behind-the-booth verification visits',
+        ],
+      },
+    ],
     description:
       'Navigate Yiwu International Trade City with a bilingual sourcing guide. Find verified suppliers, negotiate prices, and ship samples from the world’s largest wholesale market.',
     longDescription:
@@ -240,17 +434,53 @@ export const services: Service[] = [
     ],
     imageColor: 'bg-teal-700',
   },
+
+  /* ================================================================ */
+  /*  5. Guangzhou Multi-Category Sourcing                            */
+  /* ================================================================ */
   {
     slug: 'guangzhou-multi-category-sourcing',
     title: 'Guangzhou Multi-Category Sourcing',
-    subtitle: '3-day multi-category sourcing across Guangzhou’s wholesale markets and factories',
+    subtitle:
+      '3-day multi-category sourcing across Guangzhou’s wholesale markets and factories',
     category: 'Multi-Category',
     industry: 'consumer-goods',
     location: 'Guangzhou, Guangdong',
     cities: ['Guangzhou'],
     durationDays: 3,
     durationLabel: '3 days',
-    price: '$2,500',
+    price: '$4,999',
+    tiers: [
+      {
+        slug: 'lite',
+        name: 'LITE',
+        label: 'Basic guided access',
+        price: '$3,699',
+        includes: [
+          ...LITE_COMMON,
+        ],
+      },
+      {
+        slug: 'standard',
+        name: 'STANDARD',
+        label: 'Full-service factory audit',
+        price: '$4,999',
+        includes: [
+          ...STANDARD_COMMON,
+          'Multi-market coordination (Sanyuanli, Zhanxi Road, Liwan Plaza)',
+        ],
+      },
+      {
+        slug: 'premium',
+        name: 'PREMIUM',
+        label: 'White-glove concierge',
+        price: '$8,499',
+        includes: [
+          ...premiumCommon(3),
+          'Custom factory visits arranged for each product category',
+        ],
+      },
+    ],
     description:
       'Source across multiple product categories in Guangzhou: bags, watches, jewelry, toys, gifts, and fashion accessories with verified supplier connections.',
     longDescription:
@@ -298,17 +528,53 @@ export const services: Service[] = [
     ],
     imageColor: 'bg-red-800',
   },
+
+  /* ================================================================ */
+  /*  6. Guangzhou Apparel & Leather Sprint                           */
+  /* ================================================================ */
   {
     slug: 'guangzhou-apparel-leather',
     title: 'Guangzhou Apparel & Leather Sprint',
-    subtitle: '4-day deep dive into Guangzhou’s garment, textile, and leather goods supply chain',
+    subtitle:
+      '4-day deep dive into Guangzhou’s garment, textile, and leather goods supply chain',
     category: 'Apparel Sprint',
     industry: 'apparel-textile',
     location: 'Guangzhou, Guangdong',
     cities: ['Guangzhou'],
     durationDays: 4,
     durationLabel: '4 days',
-    price: '$2,800',
+    price: '$5,999',
+    tiers: [
+      {
+        slug: 'lite',
+        name: 'LITE',
+        label: 'Basic guided access',
+        price: '$4,499',
+        includes: [
+          ...LITE_COMMON,
+        ],
+      },
+      {
+        slug: 'standard',
+        name: 'STANDARD',
+        label: 'Full-service factory audit',
+        price: '$5,999',
+        includes: [
+          ...STANDARD_COMMON,
+          'Zhongda fabric market sourcing + sample collection',
+        ],
+      },
+      {
+        slug: 'premium',
+        name: 'PREMIUM',
+        label: 'White-glove concierge',
+        price: '$9,999',
+        includes: [
+          ...premiumCommon(4),
+          'Sample-making coordination with selected factories',
+        ],
+      },
+    ],
     description:
       'Source apparel, textiles, and leather goods from Guangzhou’s specialized wholesale markets and factories. Quality inspection and supplier verification included.',
     longDescription:
@@ -356,17 +622,53 @@ export const services: Service[] = [
     ],
     imageColor: 'bg-red-700',
   },
+
+  /* ================================================================ */
+  /*  7. Textile Belt Deep Dive                                       */
+  /* ================================================================ */
   {
     slug: 'textile-belt-deep-dive',
     title: 'Textile Belt Deep Dive',
-    subtitle: '5-day comprehensive tour of China’s textile manufacturing corridor: Keqiao, Shaoxing, Nantong',
+    subtitle:
+      '5-day comprehensive tour of China’s textile manufacturing corridor: Keqiao, Shaoxing, Nantong',
     category: 'Textile Deep Dive',
     industry: 'apparel-textile',
     location: 'Zhejiang & Jiangsu',
     cities: ['Shaoxing', 'Keqiao', 'Nantong'],
     durationDays: 5,
     durationLabel: '5 days',
-    price: '$3,500',
+    price: '$6,799',
+    tiers: [
+      {
+        slug: 'lite',
+        name: 'LITE',
+        label: 'Basic guided access',
+        price: '$4,999',
+        includes: [
+          ...LITE_COMMON,
+        ],
+      },
+      {
+        slug: 'standard',
+        name: 'STANDARD',
+        label: 'Full-service factory audit',
+        price: '$6,799',
+        includes: [
+          ...STANDARD_COMMON,
+          'Keqiao fabric market navigation + mill audits',
+        ],
+      },
+      {
+        slug: 'premium',
+        name: 'PREMIUM',
+        label: 'White-glove concierge',
+        price: '$11,499',
+        includes: [
+          ...premiumCommon(5),
+          'Third-party fabric testing coordination (colorfastness, shrinkage, composition)',
+        ],
+      },
+    ],
     description:
       'Tour China’s textile manufacturing heartland. Visit fabric mills, dye houses, and garment factories in Keqiao, Shaoxing, and Nantong.',
     longDescription:
@@ -414,17 +716,53 @@ export const services: Service[] = [
     ],
     imageColor: 'bg-orange-800',
   },
+
+  /* ================================================================ */
+  /*  8. Foshan Furniture Sourcing                                    */
+  /* ================================================================ */
   {
     slug: 'foshan-furniture-sourcing',
     title: 'Foshan Furniture Sourcing',
-    subtitle: '4-day guided sourcing in China’s furniture manufacturing capital',
+    subtitle:
+      '4-day guided sourcing in China’s furniture manufacturing capital',
     category: 'Furniture Sprint',
     industry: 'furniture',
     location: 'Foshan, Guangdong',
     cities: ['Foshan'],
     durationDays: 4,
     durationLabel: '4 days',
-    price: '$2,800',
+    price: '$5,799',
+    tiers: [
+      {
+        slug: 'lite',
+        name: 'LITE',
+        label: 'Basic guided access',
+        price: '$4,299',
+        includes: [
+          ...LITE_COMMON,
+        ],
+      },
+      {
+        slug: 'standard',
+        name: 'STANDARD',
+        label: 'Full-service factory audit',
+        price: '$5,799',
+        includes: [
+          ...STANDARD_COMMON,
+          'Lecong showroom navigation + factory audits',
+        ],
+      },
+      {
+        slug: 'premium',
+        name: 'PREMIUM',
+        label: 'White-glove concierge',
+        price: '$9,799',
+        includes: [
+          ...premiumCommon(4),
+          'Pre-shipment material & build quality inspection',
+        ],
+      },
+    ],
     description:
       'Source furniture directly from factories in Foshan, the world’s largest furniture manufacturing hub. Quality inspection, material verification, and logistics support.',
     longDescription:
@@ -472,19 +810,53 @@ export const services: Service[] = [
     ],
     imageColor: 'bg-purple-800',
   },
+
+  /* ================================================================ */
+  /*  9. Yunnan Coffee & Tea Origin                                   */
+  /* ================================================================ */
   {
     slug: 'yunnan-coffee-tea-origin',
     title: 'Yunnan Coffee & Tea Origin',
-    subtitle: '5-day origin visit to Yunnan’s coffee farms, tea plantations, and processing facilities',
+    subtitle:
+      '5-day origin visit to Yunnan’s coffee farms, tea plantations, and processing facilities',
     category: 'Food & Beverage Origin',
     industry: 'food-beverage',
     location: 'Yunnan Province',
     cities: ['Kunming', "Pu'er", 'Baoshan', 'Dali'],
     durationDays: 5,
     durationLabel: '5 days',
-    price: '$3,800',
-    premiumPrice: '$5,200',
-    premiumLabel: 'Premium (includes cupping/tasting session with Q-grader)',
+    price: '$6,999',
+    tiers: [
+      {
+        slug: 'lite',
+        name: 'LITE',
+        label: 'Basic guided access',
+        price: '$5,199',
+        includes: [
+          ...LITE_COMMON,
+        ],
+      },
+      {
+        slug: 'standard',
+        name: 'STANDARD',
+        label: 'Full-service factory audit',
+        price: '$6,999',
+        includes: [
+          ...STANDARD_COMMON,
+          'Cupping & tasting sessions with producers',
+        ],
+      },
+      {
+        slug: 'premium',
+        name: 'PREMIUM',
+        label: 'White-glove concierge',
+        price: '$11,799',
+        includes: [
+          ...premiumCommon(5),
+          'Q-grader certified cupping session + detailed origin report',
+        ],
+      },
+    ],
     description:
       'Visit Yunnan coffee farms and tea plantations. Meet producers, inspect processing facilities, and source specialty coffee and Pu’er tea at origin.',
     longDescription:
@@ -532,17 +904,53 @@ export const services: Service[] = [
     ],
     imageColor: 'bg-orange-700',
   },
+
+  /* ================================================================ */
+  /*  10. Sichuan Spice & Cuisine Route                               */
+  /* ================================================================ */
   {
     slug: 'sichuan-spice-cuisine-route',
     title: 'Sichuan Spice & Cuisine Route',
-    subtitle: '4-day sourcing trip for Sichuan pepper, chili, specialty sauces, and food ingredients',
+    subtitle:
+      '4-day sourcing trip for Sichuan pepper, chili, specialty sauces, and food ingredients',
     category: 'Food & Beverage Origin',
     industry: 'food-beverage',
     location: 'Sichuan & Chongqing',
     cities: ['Chengdu', 'Chongqing'],
     durationDays: 4,
     durationLabel: '4 days',
-    price: '$3,200',
+    price: '$5,999',
+    tiers: [
+      {
+        slug: 'lite',
+        name: 'LITE',
+        label: 'Basic guided access',
+        price: '$4,499',
+        includes: [
+          ...LITE_COMMON,
+        ],
+      },
+      {
+        slug: 'standard',
+        name: 'STANDARD',
+        label: 'Full-service factory audit',
+        price: '$5,999',
+        includes: [
+          ...STANDARD_COMMON,
+          'Spice market tour + production facility visits',
+        ],
+      },
+      {
+        slug: 'premium',
+        name: 'PREMIUM',
+        label: 'White-glove concierge',
+        price: '$9,999',
+        includes: [
+          ...premiumCommon(4),
+          'Custom recipe development session with local chefs',
+        ],
+      },
+    ],
     description:
       'Source authentic Sichuan pepper, chili products, specialty sauces, and Chinese food ingredients directly from producers in Sichuan and Chongqing.',
     longDescription:
@@ -590,17 +998,53 @@ export const services: Service[] = [
     ],
     imageColor: 'bg-red-800',
   },
+
+  /* ================================================================ */
+  /*  11. Ningxia Goji & Wine Route                                   */
+  /* ================================================================ */
   {
     slug: 'ningxia-goji-wine-route',
     title: 'Ningxia Goji & Wine Route',
-    subtitle: '3-day origin visit to Ningxia’s goji berry farms and emerging wine region',
+    subtitle:
+      '3-day origin visit to Ningxia’s goji berry farms and emerging wine region',
     category: 'Food & Beverage Origin',
     industry: 'food-beverage',
     location: 'Ningxia Province',
     cities: ['Yinchuan', 'Zhongwei'],
     durationDays: 3,
     durationLabel: '3 days',
-    price: '$3,600',
+    price: '$4,999',
+    tiers: [
+      {
+        slug: 'lite',
+        name: 'LITE',
+        label: 'Basic guided access',
+        price: '$3,699',
+        includes: [
+          ...LITE_COMMON,
+        ],
+      },
+      {
+        slug: 'standard',
+        name: 'STANDARD',
+        label: 'Full-service factory audit',
+        price: '$4,999',
+        includes: [
+          ...STANDARD_COMMON,
+          'Winery tasting sessions + goji farm quality audits',
+        ],
+      },
+      {
+        slug: 'premium',
+        name: 'PREMIUM',
+        label: 'White-glove concierge',
+        price: '$8,499',
+        includes: [
+          ...premiumCommon(3),
+          'Wine import documentation & label compliance review',
+        ],
+      },
+    ],
     description:
       'Visit Ningxia’s goji berry farms, processing facilities, and award-winning wineries. Source premium goji products and Chinese wines at origin.',
     longDescription:
@@ -648,17 +1092,53 @@ export const services: Service[] = [
     ],
     imageColor: 'bg-red-900',
   },
+
+  /* ================================================================ */
+  /*  12. Monopoly Factory Towns Explorer                             */
+  /* ================================================================ */
   {
     slug: 'monopoly-factory-towns-explorer',
     title: 'Monopoly Factory Towns Explorer',
-    subtitle: '6-day custom route through China’s hyper-specialized manufacturing towns',
+    subtitle:
+      '6-day custom route through China’s hyper-specialized manufacturing towns',
     category: 'Factory Towns',
     industry: 'monopoly-towns',
     location: 'Zhejiang & Jiangsu',
     cities: ['Zhuji', 'Dongyang', 'Yongkang', 'Taizhou'],
     durationDays: 6,
     durationLabel: '6 days',
-    price: '$4,800',
+    price: '$7,699',
+    tiers: [
+      {
+        slug: 'lite',
+        name: 'LITE',
+        label: 'Basic guided access',
+        price: '$5,799',
+        includes: [
+          ...LITE_COMMON,
+        ],
+      },
+      {
+        slug: 'standard',
+        name: 'STANDARD',
+        label: 'Full-service factory audit',
+        price: '$7,699',
+        includes: [
+          ...STANDARD_COMMON,
+          '4–5 specialized factory town visits with optimized route',
+        ],
+      },
+      {
+        slug: 'premium',
+        name: 'PREMIUM',
+        label: 'White-glove concierge',
+        price: '$12,999',
+        includes: [
+          ...premiumCommon(6),
+          'Custom town selection + factory owner executive dinners at each stop',
+        ],
+      },
+    ],
     description:
       'Explore China’s monopoly factory towns: Zhuji (socks), Dongyang (mahjong/magnets), Yongkang (hardware), Taizhou (molds). One trip, multiple niche categories.',
     longDescription:
@@ -706,19 +1186,54 @@ export const services: Service[] = [
     ],
     imageColor: 'bg-indigo-800',
   },
+
+  /* ================================================================ */
+  /*  13. Canton Fair Navigator                                       */
+  /* ================================================================ */
   {
     slug: 'canton-fair-navigator',
     title: 'Canton Fair Navigator',
-    subtitle: '5 or 10-day guided Canton Fair experience with supplier verification and factory visits',
+    subtitle:
+      '5 or 10-day guided Canton Fair experience with supplier verification and factory visits',
     category: 'Fair Navigator',
     industry: 'canton-fair',
     location: 'Guangzhou, Guangdong',
     cities: ['Guangzhou'],
     durationDays: 5,
     durationLabel: '5 or 10 days',
-    price: '$2,500',
-    premiumPrice: '$4,500',
-    premiumLabel: '10-day Premium (both phases + factory visits)',
+    price: '$6,999',
+    tiers: [
+      {
+        slug: 'lite',
+        name: 'LITE',
+        label: 'Basic guided access',
+        price: '$5,199',
+        includes: [
+          ...LITE_COMMON,
+        ],
+      },
+      {
+        slug: 'standard',
+        name: 'STANDARD',
+        label: 'Full-service factory audit',
+        price: '$6,999',
+        includes: [
+          ...STANDARD_COMMON,
+          'Pre-fair exhibitor shortlisting + optimized booth visit schedule',
+        ],
+      },
+      {
+        slug: 'premium',
+        name: 'PREMIUM',
+        label: 'White-glove concierge',
+        price: '$11,899',
+        includes: [
+          ...premiumCommon(5),
+          'Post-fair factory visits arranged to top 5 candidates',
+          '10-day option available (both fair phases + extended factory tours)',
+        ],
+      },
+    ],
     description:
       'Navigate the Canton Fair with an experienced guide. Pre-screen exhibitors, schedule booth visits, and arrange factory tours for verified suppliers.',
     longDescription:

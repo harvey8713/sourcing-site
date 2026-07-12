@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brand Blue Options - OnSite</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0f172a; color: #e2e8f0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; padding: 2rem; }
+  h1 { text-align: center; font-size: 1.6rem; margin-bottom: 0.5rem; color: #f1f5f9; letter-spacing: -0.02em; }
+  .subtitle { text-align: center; font-size: 0.8rem; color: #94a3b8; margin-bottom: 2rem; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 1.5rem; max-width: 1300px; margin: 0 auto; }
+
+  .card { background: #1e293b; border-radius: 14px; overflow: hidden; border: 1px solid #334155; }
+  .card.recommend { border: 2px solid #60a5fa; }
+
+  .card-header { padding: 1rem 1.25rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #334155; }
+  .card-name { font-weight: 700; font-size: 1rem; }
+  .card-code { font-family: 'SF Mono', monospace; font-size: 0.75rem; opacity: 0.6; }
+  .card-desc { padding: 0.5rem 1.25rem 0; font-size: 0.75rem; opacity: 0.65; line-height: 1.5; }
+
+  .preview-site { margin: 1rem 1.25rem; border-radius: 10px; overflow: hidden; }
+
+  /* mini site preview */
+  .mini-site { background: var(--bg); border-radius: 10px; overflow: hidden; border: 1px solid #334155; }
+  .mini-nav { height: 36px; background: var(--bg); display: flex; align-items: center; padding: 0 12px; gap: 8px; }
+  .mini-nav .logo { font-weight: 200; font-size: 0.7rem; letter-spacing: 1px; text-transform: uppercase; color: var(--text); }
+  .mini-nav .logo strong { font-weight: 800; letter-spacing: -0.5px; }
+  .mini-nav .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--primary); }
+  .mini-hero { padding: 24px 16px; text-align: center; background: #1A1A2E; color: #fff; }
+  .mini-hero h2 { font-size: 0.75rem; font-weight: 900; line-height: 1.15; margin-bottom: 8px; }
+  .mini-hero p { font-size: 0.55rem; opacity: 0.5; }
+  .mini-btn { display: inline-block; background: var(--primary); color: #fff; padding: 6px 14px; border-radius: 5px; font-size: 0.6rem; font-weight: 600; margin: 0 3px; }
+  .mini-btn-ghost { display: inline-block; border: 1px solid rgba(255,255,255,0.3); color: #fff; padding: 6px 14px; border-radius: 5px; font-size: 0.6rem; font-weight: 600; margin: 0 3px; }
+  .mini-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; padding: 8px 16px; background: var(--primary); text-align: center; }
+  .mini-stats .stat-val { font-size: 0.65rem; font-weight: 700; color: #fff; }
+  .mini-stats .stat-lbl { font-size: 0.45rem; color: rgba(255,255,255,0.7); }
+  .mini-section { padding: 16px; }
+  .mini-section .label { font-size: 0.55rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--primary); margin-bottom: 6px; }
+  .mini-section h3 { font-size: 0.8rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .mini-section .desc { font-size: 0.55rem; color: var(--text-secondary); line-height: 1.5; }
+  .mini-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; margin-top: 10px; }
+  .mini-card { border-radius: 8px; padding: 8px; border: 1px solid var(--border); }
+  .mini-card .card-icon { width: 20px; height: 20px; border-radius: 6px; background: var(--primary); margin-bottom: 6px; opacity: 0.8; }
+  .mini-card .card-title { font-size: 0.6rem; font-weight: 600; color: var(--text); }
+
+  .palette-row { display: flex; gap: 6px; margin: 10px 0; }
+  .palette-dot { width: 28px; height: 28px; border-radius: 6px; flex-shrink: 0; }
+  .palette-label { font-size: 0.55rem; font-family: 'SF Mono', monospace; opacity: 0.7; margin-top: 2px; }
+
+  .ref-row { display: flex; gap: 12px; padding: 0 1.25rem 1rem; flex-wrap: wrap; }
+  .ref-badge { font-size: 0.6rem; padding: 2px 8px; border-radius: 4px; background: rgba(255,255,255,0.06); color: #94a3b8; }
+  .ref-badge .ref-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 4px; vertical-align: middle; }
+</style>
+</head>
+<body>
+
+<h1>OnSite &mdash; Brand Blue Options v2</h1>
+<p class="subtitle">Based on research: tech brand colors, 2025 trends, and Chinese factory context</p>
+
+<div class="grid">
+
+  <!-- A: LinkedIn-style Professional Blue -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-name">A &mdash; Professional Blue</span>
+      <span class="card-code">#1d4ed8</span>
+    </div>
+    <div class="card-desc">LinkedIn / Meta territory. Trusted, safe, familiar. But very common — looks like every other B2B site.</div>
+    <div class="preview-site">
+      <div class="mini-site" style="--primary: #1d4ed8; --primary-hover: #1e40af; --bg: #F5F5F0; --text: #1A1A2E; --text-secondary: #5A5A6E; --border: #E0DDD8;">
+        <div class="mini-nav">
+          <span class="logo">On<strong>Site</strong></span>
+          <span class="dot"></span>
+        </div>
+        <div class="mini-hero">
+          <h2>Is your supplier a factory —<br>or just a guy with a WeChat account?</h2>
+          <p style="margin-bottom:10px;">OnSite · On the ground. On your side.</p>
+          <span class="mini-btn">Explore Services</span>
+          <span class="mini-btn-ghost">How It Works</span>
+        </div>
+        <div class="mini-stats">
+          <div><div class="stat-val">1,200+</div><div class="stat-lbl">Factories</div></div>
+          <div><div class="stat-val">60+</div><div class="stat-lbl">Cities</div></div>
+          <div><div class="stat-val">500+</div><div class="stat-lbl">Clients</div></div>
+          <div><div class="stat-val">98%</div><div class="stat-lbl">Satisfaction</div></div>
+        </div>
+        <div class="mini-section">
+          <div class="label">Where things are made</div>
+          <h3>China's Manufacturing Hubs</h3>
+          <div class="desc">Discover the specialized clusters that power the world's supply chains.</div>
+          <div class="mini-cards">
+            <div class="mini-card"><div class="card-icon"></div><div class="card-title">Shenzhen</div></div>
+            <div class="mini-card"><div class="card-icon"></div><div class="card-title">Yiwu</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="palette-row" style="padding:0 1.25rem 0.5rem;">
+      <div class="palette-dot" style="background:#1d4ed8"></div>
+      <div class="palette-dot" style="background:#1e3a8a"></div>
+      <div class="palette-dot" style="background:#1A1A2E"></div>
+      <div class="palette-dot" style="background:#F5F5F0"></div>
+      <div class="palette-dot" style="background:#E0DDD8"></div>
+    </div>
+    <div class="ref-row">
+      <span class="ref-badge"><span class="ref-dot" style="background:#0A66C2"></span> LinkedIn</span>
+      <span class="ref-badge"><span class="ref-dot" style="background:#1877F2"></span> Meta</span>
+    </div>
+  </div>
+
+  <!-- B: Slate Blue (elegant, understated) -->
+  <div class="card recommend">
+    <div class="card-header">
+      <span class="card-name">B &mdash; Steel Blue</span>
+      <span class="card-code">#5b7fa5</span>
+    </div>
+    <div class="card-desc">Muted, elegant. Feels like an architecture or design firm. Not shouting — confident in its subtlety. Distinctive in a sea of bright blues.</div>
+    <div class="preview-site">
+      <div class="mini-site" style="--primary: #5b7fa5; --primary-hover: #4a6d91; --bg: #F5F5F0; --text: #1A1A2E; --text-secondary: #5A5A6E; --border: #E0DDD8;">
+        <div class="mini-nav">
+          <span class="logo">On<strong>Site</strong></span>
+          <span class="dot"></span>
+        </div>
+        <div class="mini-hero">
+          <h2>Is your supplier a factory —<br>or just a guy with a WeChat account?</h2>
+          <p style="margin-bottom:10px;">OnSite · On the ground. On your side.</p>
+          <span class="mini-btn">Explore Services</span>
+          <span class="mini-btn-ghost">How It Works</span>
+        </div>
+        <div class="mini-stats">
+          <div><div class="stat-val">1,200+</div><div class="stat-lbl">Factories</div></div>
+          <div><div class="stat-val">60+</div><div class="stat-lbl">Cities</div></div>
+          <div><div class="stat-val">500+</div><div class="stat-lbl">Clients</div></div>
+          <div><div class="stat-val">98%</div><div class="stat-lbl">Satisfaction</div></div>
+        </div>
+        <div class="mini-section">
+          <div class="label">Where things are made</div>
+          <h3>China's Manufacturing Hubs</h3>
+          <div class="desc">Discover the specialized clusters that power the world's supply chains.</div>
+          <div class="mini-cards">
+            <div class="mini-card"><div class="card-icon"></div><div class="card-title">Shenzhen</div></div>
+            <div class="mini-card"><div class="card-icon"></div><div class="card-title">Yiwu</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="palette-row" style="padding:0 1.25rem 0.5rem;">
+      <div class="palette-dot" style="background:#5b7fa5"></div>
+      <div class="palette-dot" style="background:#4a6d91"></div>
+      <div class="palette-dot" style="background:#1A1A2E"></div>
+      <div class="palette-dot" style="background:#F5F5F0"></div>
+      <div class="palette-dot" style="background:#E0DDD8"></div>
+    </div>
+    <div class="ref-row">
+      <span class="ref-badge"><span class="ref-dot" style="background:#2C3E50"></span> Notion (muted)</span>
+      <span class="ref-badge"><span class="ref-dot" style="background:#5A6B7D"></span> Linear (steel)</span>
+    </div>
+  </div>
+
+  <!-- C: Indigo (tech-forward, distinctive) -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-name">C &mdash; Indigo</span>
+      <span class="card-code">#6366f1</span>
+    </div>
+    <div class="card-desc">Blurple — very 2025 tech. Stripe, Vercel territory. Modern but becoming common in developer tools.</div>
+    <div class="preview-site">
+      <div class="mini-site" style="--primary: #6366f1; --primary-hover: #4f46e5; --bg: #F5F5F0; --text: #1A1A2E; --text-secondary: #5A5A6E; --border: #E0DDD8;">
+        <div class="mini-nav">
+          <span class="logo">On<strong>Site</strong></span>
+          <span class="dot"></span>
+        </div>
+        <div class="mini-hero">
+          <h2>Is your supplier a factory —<br>or just a guy with a WeChat account?</h2>
+          <p style="margin-bottom:10px;">OnSite · On the ground. On your side.</p>
+          <span class="mini-btn">Explore Services</span>
+          <span class="mini-btn-ghost">How It Works</span>
+        </div>
+        <div class="mini-stats">
+          <div><div class="stat-val">1,200+</div><div class="stat-lbl">Factories</div></div>
+          <div><div class="stat-val">60+</div><div class="stat-lbl">Cities</div></div>
+          <div><div class="stat-val">500+</div><div class="stat-lbl">Clients</div></div>
+          <div><div class="stat-val">98%</div><div class="stat-lbl">Satisfaction</div></div>
+        </div>
+        <div class="mini-section">
+          <div class="label">Where things are made</div>
+          <h3>China's Manufacturing Hubs</h3>
+          <div class="desc">Discover the specialized clusters that power the world's supply chains.</div>
+          <div class="mini-cards">
+            <div class="mini-card"><div class="card-icon"></div><div class="card-title">Shenzhen</div></div>
+            <div class="mini-card"><div class="card-icon"></div><div class="card-title">Yiwu</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="palette-row" style="padding:0 1.25rem 0.5rem;">
+      <div class="palette-dot" style="background:#6366f1"></div>
+      <div class="palette-dot" style="background:#4f46e5"></div>
+      <div class="palette-dot" style="background:#1A1A2E"></div>
+      <div class="palette-dot" style="background:#F5F5F0"></div>
+      <div class="palette-dot" style="background:#E0DDD8"></div>
+    </div>
+    <div class="ref-row">
+      <span class="ref-badge"><span class="ref-dot" style="background:#635BFF"></span> Stripe</span>
+      <span class="ref-badge"><span class="ref-dot" style="background:#6C5CE7"></span> Vercel</span>
+    </div>
+  </div>
+
+  <!-- D: Deep Navy (IBM-style, premium) -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-name">D &mdash; Deep Navy</span>
+      <span class="card-code">#1e3a5f</span>
+    </div>
+    <div class="card-desc">IBM / financial sector territory. Authoritative, premium, trustworthy. Blends seamlessly with dark backgrounds.</div>
+    <div class="preview-site">
+      <div class="mini-site" style="--primary: #1e3a5f; --primary-hover: #152a45; --bg: #F5F5F0; --text: #1A1A2E; --text-secondary: #5A5A6E; --border: #E0DDD8;">
+        <div class="mini-nav">
+          <span class="logo">On<strong>Site</strong></span>
+          <span class="dot"></span>
+        </div>
+        <div class="mini-hero">
+          <h2>Is your supplier a factory —<br>or just a guy with a WeChat account?</h2>
+          <p style="margin-bottom:10px;">OnSite · On the ground. On your side.</p>
+          <span class="mini-btn">Explore Services</span>
+          <span class="mini-btn-ghost">How It Works</span>
+        </div>
+        <div class="mini-stats">
+          <div><div class="stat-val">1,200+</div><div class="stat-lbl">Factories</div></div>
+          <div><div class="stat-val">60+</div><div class="stat-lbl">Cities</div></div>
+          <div><div class="stat-val">500+</div><div class="stat-lbl">Clients</div></div>
+          <div><div class="stat-val">98%</div><div class="stat-lbl">Satisfaction</div></div>
+        </div>
+        <div class="mini-section">
+          <div class="label">Where things are made</div>
+          <h3>China's Manufacturing Hubs</h3>
+          <div class="desc">Discover the specialized clusters that power the world's supply chains.</div>
+          <div class="mini-cards">
+            <div class="mini-card"><div class="card-icon"></div><div class="card-title">Shenzhen</div></div>
+            <div class="mini-card"><div class="card-icon"></div><div class="card-title">Yiwu</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="palette-row" style="padding:0 1.25rem 0.5rem;">
+      <div class="palette-dot" style="background:#1e3a5f"></div>
+      <div class="palette-dot" style="background:#152a45"></div>
+      <div class="palette-dot" style="background:#1A1A2E"></div>
+      <div class="palette-dot" style="background:#F5F5F0"></div>
+      <div class="palette-dot" style="background:#E0DDD8"></div>
+    </div>
+    <div class="ref-row">
+      <span class="ref-badge"><span class="ref-dot" style="background:#0530AD"></span> IBM</span>
+      <span class="ref-badge"><span class="ref-dot" style="background:#005288"></span> SpaceX</span>
+    </div>
+  </div>
+
+  <!-- E: Cerulean / Teal-Blue (fresh, unique) -->
+  <div class="card recommend">
+    <div class="card-header">
+      <span class="card-name">E &mdash; Cerulean</span>
+      <span class="card-code">#0e7490</span>
+    </div>
+    <div class="card-desc">Perplexity / industrial-chic. Feels fresh, coastal, premium-trade. Nobody in sourcing uses this. Very distinctive.</div>
+    <div class="preview-site">
+      <div class="mini-site" style="--primary: #0e7490; --primary-hover: #155e75; --bg: #F5F5F0; --text: #1A1A2E; --text-secondary: #5A5A6E; --border: #E0DDD8;">
+        <div class="mini-nav">
+          <span class="logo">On<strong>Site</strong></span>
+          <span class="dot"></span>
+        </div>
+        <div class="mini-hero">
+          <h2>Is your supplier a factory —<br>or just a guy with a WeChat account?</h2>
+          <p style="margin-bottom:10px;">OnSite · On the ground. On your side.</p>
+          <span class="mini-btn">Explore Services</span>
+          <span class="mini-btn-ghost">How It Works</span>
+        </div>
+        <div class="mini-stats">
+          <div><div class="stat-val">1,200+</div><div class="stat-lbl">Factories</div></div>
+          <div><div class="stat-val">60+</div><div class="stat-lbl">Cities</div></div>
+          <div><div class="stat-val">500+</div><div class="stat-lbl">Clients</div></div>
+          <div><div class="stat-val">98%</div><div class="stat-lbl">Satisfaction</div></div>
+        </div>
+        <div class="mini-section">
+          <div class="label">Where things are made</div>
+          <h3>China's Manufacturing Hubs</h3>
+          <div class="desc">Discover the specialized clusters that power the world's supply chains.</div>
+          <div class="mini-cards">
+            <div class="mini-card"><div class="card-icon"></div><div class="card-title">Shenzhen</div></div>
+            <div class="mini-card"><div class="card-icon"></div><div class="card-title">Yiwu</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="palette-row" style="padding:0 1.25rem 0.5rem;">
+      <div class="palette-dot" style="background:#0e7490"></div>
+      <div class="palette-dot" style="background:#155e75"></div>
+      <div class="palette-dot" style="background:#1A1A2E"></div>
+      <div class="palette-dot" style="background:#F5F5F0"></div>
+      <div class="palette-dot" style="background:#E0DDD8"></div>
+    </div>
+    <div class="ref-row">
+      <span class="ref-badge"><span class="ref-dot" style="background:#20808D"></span> Perplexity</span>
+      <span class="ref-badge"><span class="ref-dot" style="background:#006C67"></span> Notion (teal era)</span>
+    </div>
+  </div>
+
+  <!-- F: Muted Indigo-Gray (sophisticated Chinese aesthetic) -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-name">F &mdash; Ink Blue</span>
+      <span class="card-code">#334155</span>
+    </div>
+    <div class="card-desc">Slate/ink inspired by Chinese calligraphy. Minimal, intellectual, premium. Almost a neutral — lets content speak.</div>
+    <div class="preview-site">
+      <div class="mini-site" style="--primary: #334155; --primary-hover: #1e293b; --bg: #F5F5F0; --text: #1A1A2E; --text-secondary: #5A5A6E; --border: #E0DDD8;">
+        <div class="mini-nav">
+          <span class="logo">On<strong>Site</strong></span>
+          <span class="dot"></span>
+        </div>
+        <div class="mini-hero">
+          <h2>Is your supplier a factory —<br>or just a guy with a WeChat account?</h2>
+          <p style="margin-bottom:10px;">OnSite · On the ground. On your side.</p>
+          <span class="mini-btn">Explore Services</span>
+          <span class="mini-btn-ghost">How It Works</span>
+        </div>
+        <div class="mini-stats">
+          <div><div class="stat-val">1,200+</div><div class="stat-lbl">Factories</div></div>
+          <div><div class="stat-val">60+</div><div class="stat-lbl">Cities</div></div>
+          <div><div class="stat-val">500+</div><div class="stat-lbl">Clients</div></div>
+          <div><div class="stat-val">98%</div><div class="stat-lbl">Satisfaction</div></div>
+        </div>
+        <div class="mini-section">
+          <div class="label">Where things are made</div>
+          <h3>China's Manufacturing Hubs</h3>
+          <div class="desc">Discover the specialized clusters that power the world's supply chains.</div>
+          <div class="mini-cards">
+            <div class="mini-card"><div class="card-icon"></div><div class="card-title">Shenzhen</div></div>
+            <div class="mini-card"><div class="card-icon"></div><div class="card-title">Yiwu</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="palette-row" style="padding:0 1.25rem 0.5rem;">
+      <div class="palette-dot" style="background:#334155"></div>
+      <div class="palette-dot" style="background:#1e293b"></div>
+      <div class="palette-dot" style="background:#1A1A2E"></div>
+      <div class="palette-dot" style="background:#F5F5F0"></div>
+      <div class="palette-dot" style="background:#E0DDD8"></div>
+    </div>
+    <div class="ref-row">
+      <span class="ref-badge"><span class="ref-dot" style="background:#000000"></span> Apple (bw)</span>
+      <span class="ref-badge"><span class="ref-dot" style="background:#334155"></span> Tailwind UI</span>
+    </div>
+  </div>
+
+</div>
+
+<h2 style="text-align:center; margin-top:3rem; font-size:1.2rem; color:#f1f5f9;">Reference: Major Tech Brand Blues</h2>
+<div style="display:flex; gap:1rem; justify-content:center; margin-top:1rem; flex-wrap:wrap; max-width:1000px; margin-inline:auto;">
+  <div style="text-align:center; background:#1e293b; padding:12px 16px; border-radius:8px; border:1px solid #334155;">
+    <div style="width:32px;height:32px;border-radius:6px;background:#1877F2;margin:0 auto 6px;"></div>
+    <div style="font-size:0.65rem;font-weight:600;">Meta</div>
+    <div style="font-size:0.55rem;opacity:0.5;font-family:monospace;">#1877F2</div>
+  </div>
+  <div style="text-align:center; background:#1e293b; padding:12px 16px; border-radius:8px; border:1px solid #334155;">
+    <div style="width:32px;height:32px;border-radius:6px;background:#0A66C2;margin:0 auto 6px;"></div>
+    <div style="font-size:0.65rem;font-weight:600;">LinkedIn</div>
+    <div style="font-size:0.55rem;opacity:0.5;font-family:monospace;">#0A66C2</div>
+  </div>
+  <div style="text-align:center; background:#1e293b; padding:12px 16px; border-radius:8px; border:1px solid #334155;">
+    <div style="width:32px;height:32px;border-radius:6px;background:#0530AD;margin:0 auto 6px;"></div>
+    <div style="font-size:0.65rem;font-weight:600;">IBM</div>
+    <div style="font-size:0.55rem;opacity:0.5;font-family:monospace;">#0530AD</div>
+  </div>
+  <div style="text-align:center; background:#1e293b; padding:12px 16px; border-radius:8px; border:1px solid #334155;">
+    <div style="width:32px;height:32px;border-radius:6px;background:#0071C5;margin:0 auto 6px;"></div>
+    <div style="font-size:0.65rem;font-weight:600;">Intel</div>
+    <div style="font-size:0.55rem;opacity:0.5;font-family:monospace;">#0071C5</div>
+  </div>
+  <div style="text-align:center; background:#1e293b; padding:12px 16px; border-radius:8px; border:1px solid #334155;">
+    <div style="width:32px;height:32px;border-radius:6px;background:#1428A0;margin:0 auto 6px;"></div>
+    <div style="font-size:0.65rem;font-weight:600;">Samsung</div>
+    <div style="font-size:0.55rem;opacity:0.5;font-family:monospace;">#1428A0</div>
+  </div>
+  <div style="text-align:center; background:#1e293b; padding:12px 16px; border-radius:8px; border:1px solid #334155;">
+    <div style="width:32px;height:32px;border-radius:6px;background:#635BFF;margin:0 auto 6px;"></div>
+    <div style="font-size:0.65rem;font-weight:600;">Stripe</div>
+    <div style="font-size:0.55rem;opacity:0.5;font-family:monospace;">#635BFF</div>
+  </div>
+  <div style="text-align:center; background:#1e293b; padding:12px 16px; border-radius:8px; border:1px solid #334155;">
+    <div style="width:32px;height:32px;border-radius:6px;background:#20808D;margin:0 auto 6px;"></div>
+    <div style="font-size:0.65rem;font-weight:600;">Perplexity</div>
+    <div style="font-size:0.55rem;opacity:0.5;font-family:monospace;">#20808D</div>
+  </div>
+  <div style="text-align:center; background:#1e293b; padding:12px 16px; border-radius:8px; border:1px solid #334155;">
+    <div style="width:32px;height:32px;border-radius:6px;background:#4285F4;margin:0 auto 6px;"></div>
+    <div style="font-size:0.65rem;font-weight:600;">Google</div>
+    <div style="font-size:0.55rem;opacity:0.5;font-family:monospace;">#4285F4</div>
+  </div>
+</div>
+
+</body>
+</html>

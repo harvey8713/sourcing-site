@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OnSite Logo Concepts</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Outfit:wght@200;300;400;500;600;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #0a0a0a;
+    color: #fff;
+    padding: 48px 24px;
+  }
+  h1 {
+    text-align: center;
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 6px;
+    letter-spacing: -1px;
+  }
+  .subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 56px;
+    font-size: 0.9rem;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .card {
+    background: #141414;
+    border: 1px solid #2a2a2a;
+    border-radius: 20px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .card:hover {
+    border-color: #4a4a4a;
+    transform: translateY(-2px);
+  }
+  .card.selected {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+  }
+
+  /* Nav simulation */
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 28px;
+    border-bottom: 1px solid #1f1f1f;
+    background: #0f0f0f;
+  }
+  .dots { display: flex; gap: 18px; }
+  .dots span { width: 6px; height: 6px; background: #333; border-radius: 50%; }
+
+  .card-body { padding: 32px 28px 24px; }
+  .number {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: #3b82f6;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+
+  /* Showcase area */
+  .showcase {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    padding: 28px;
+    background: #1a1a1a;
+    border-radius: 14px;
+    margin: 0 28px 28px;
+  }
+  .logo-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  .logo-dark, .logo-light {
+    padding: 20px 28px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+  }
+  .logo-dark { background: #111; }
+  .logo-light { background: #f8f8f8; color: #111; }
+
+  .tag { font-size: 0.65rem; color: #666; text-transform: uppercase; letter-spacing: 0.1em; text-align: center; margin-top: 10px; }
+
+  .desc { font-size: 0.82rem; color: #888; line-height: 1.6; margin-top: 16px; }
+  .desc strong { color: #ddd; }
+
+  /* === LOGO STYLES === */
+
+  /* V1: Geometric pin + sleek type */
+  .v1 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.5rem;
+    font-weight: 300;
+    letter-spacing: -0.3px;
+    font-family: 'Inter', sans-serif;
+  }
+  .v1 b { font-weight: 700; }
+  .v1-pin {
+    width: 28px; height: 28px;
+    background: #3b82f6;
+    border-radius: 8px 8px 8px 2px;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .v1-pin::after {
+    content: '';
+    width: 8px; height: 8px;
+    background: #fff;
+    border-radius: 3px;
+    position: absolute;
+    top: 7px; left: 7px;
+  }
+
+  /* V2: Minimalist typography + slash */
+  .v2 {
+    display: flex;
+    align-items: baseline;
+    gap: 0;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.45rem;
+    font-weight: 700;
+    letter-spacing: -1px;
+    position: relative;
+  }
+  .v2-slash {
+    display: inline-block;
+    width: 2px;
+    height: 1.2em;
+    background: #3b82f6;
+    margin: 0 8px;
+    border-radius: 1px;
+    transform: skewX(-12deg);
+  }
+  .v2-on { font-weight: 400; color: #999; }
+  .v2-site { font-weight: 700; }
+
+  /* V3: Abstract O mark */
+  .v3 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 400;
+    letter-spacing: -0.5px;
+  }
+  .v3 b { font-weight: 700; }
+  .v3-mark {
+    width: 32px; height: 32px;
+    border: 2.5px solid #3b82f6;
+    border-radius: 50%;
+    position: relative;
+    flex-shrink: 0;
+    background: transparent;
+  }
+  .v3-mark::before {
+    content: '';
+    position: absolute;
+    width: 8px; height: 8px;
+    background: #3b82f6;
+    border-radius: 50%;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .v3-mark::after {
+    content: '';
+    position: absolute;
+    width: 18px; height: 18px;
+    border: 1.5px solid rgba(59,130,246,0.3);
+    border-radius: 50%;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  /* V4: Negative space O + gradient */
+  .v4 {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -1px;
+  }
+  .v4-o {
+    width: 30px; height: 30px;
+    background: linear-gradient(135deg, #3b82f6, #06b6d4);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 0.85rem;
+    color: #fff;
+    font-weight: 800;
+  }
+  .v4-light .v4-o { background: linear-gradient(135deg, #3b82f6, #0ea5e9); }
+
+  /* V5: Split type + neon accent */
+  .v5 {
+    display: flex;
+    align-items: baseline;
+    font-family: 'Inter', sans-serif;
+    font-size: 1.45rem;
+    position: relative;
+    gap: 2px;
+  }
+  .v5-on {
+    font-weight: 200;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .v5-site {
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-left: 2px;
+  }
+  .v5-dot {
+    width: 5px; height: 5px;
+    background: #3b82f6;
+    border-radius: 50%;
+    position: absolute;
+    top: -6px;
+    right: -4px;
+  }
+
+  /* V6: Wordmark only - weight contrast */
+  .v6 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.55rem;
+    letter-spacing: -0.5px;
+  }
+  .v6-on { font-weight: 200; }
+  .v6-site { font-weight: 700; }
+
+  /* V7: Dual-line badge */
+  .v7 {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .v7-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 34px; height: 34px;
+    background: #3b82f6;
+    border-radius: 6px;
+    flex-shrink: 0;
+  }
+  .v7-badge-inner {
+    width: 14px; height: 2px;
+    background: #fff;
+    border-radius: 1px;
+  }
+  .v7-badge-inner + .v7-badge-inner { margin-top: 4px; width: 8px; }
+  .v7-text { font-size: 1.35rem; font-weight: 700; letter-spacing: -0.5px; }
+
+  /* V8: Line + wordmark */
+  .v8 {
+    display: flex;
+    align-items: center;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: -0.3px;
+    gap: 12px;
+  }
+  .v8-line {
+    width: 18px;
+    height: 2px;
+    background: #3b82f6;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  .v8-line::before {
+    content: '';
+    display: block;
+    width: 6px;
+    height: 2px;
+    background: #3b82f6;
+    border-radius: 2px;
+    margin-top: 5px;
+  }
+  .v8-light-text { font-weight: 400; }
+  .v8-bold-text { font-weight: 700; }
+
+  /* Responsive */
+  @media (max-width: 800px) {
+    .grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<h1>OnSite Logo Concepts</h1>
+<p class="subtitle">年轻 · 时尚 · 高端 — 点击选中，左右对比深色/浅色背景效果</p>
+
+<div class="grid">
+
+  <!-- V1: Geometric pin -->
+  <div class="card" onclick="select(this)">
+    <div class="nav">
+      <div class="v1" style="font-size:1.15rem"><span class="v1-pin"></span>On<span style="font-weight:700">Site</span></div>
+      <div class="dots"><span></span><span></span><span></span><span></span></div>
+    </div>
+    <div class="showcase">
+      <div>
+        <div class="logo-dark">
+          <div class="v1"><span class="v1-pin"></span>On<b>Site</b></div>
+        </div>
+        <div class="tag">Dark</div>
+      </div>
+      <div>
+        <div class="logo-light">
+          <div class="v1"><span class="v1-pin"></span>On<b>Site</b></div>
+        </div>
+        <div class="tag">Light</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="number">01 · Geometric</div>
+      <h3 style="font-size:1.2rem;font-weight:700;margin-bottom:6px">几何定位标</h3>
+      <p class="desc"><strong>圆角方形 pin</strong> 代替传统圆点，现代几何感。轻体"On" + 粗体"Site"形成视觉张力。年轻、利落。</p>
+    </div>
+  </div>
+
+  <!-- V2: Slash divider -->
+  <div class="card" onclick="select(this)">
+    <div class="nav">
+      <div class="v2" style="font-size:1.1rem"><span class="v2-on">on</span><span class="v2-slash"></span><span class="v2-site">site</span></div>
+      <div class="dots"><span></span><span></span><span></span><span></span></div>
+    </div>
+    <div class="showcase">
+      <div>
+        <div class="logo-dark">
+          <div class="v2"><span class="v2-on">on</span><span class="v2-slash"></span><span class="v2-site">site</span></div>
+        </div>
+        <div class="tag">Dark</div>
+      </div>
+      <div>
+        <div class="logo-light">
+          <div class="v2"><span class="v2-on">on</span><span class="v2-slash"></span><span class="v2-site">site</span></div>
+        </div>
+        <div class="tag">Light</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="number">02 · Slash</div>
+      <h3 style="font-size:1.2rem;font-weight:700;margin-bottom:6px">斜杠分割</h3>
+      <p class="desc">Space Grotesk 字体 + <strong>蓝色斜杠</strong>替代空格，科技感强。全小写更有亲和力。类似 Stripe / Vercel 的极简路线。</p>
+    </div>
+  </div>
+
+  <!-- V3: Abstract O / radar -->
+  <div class="card" onclick="select(this)">
+    <div class="nav">
+      <div class="v3" style="font-size:1.1rem"><span class="v3-mark" style="width:24px;height:24px;border-width:2px"></span>On<b>Site</b></div>
+      <div class="dots"><span></span><span></span><span></span><span></span></div>
+    </div>
+    <div class="showcase">
+      <div>
+        <div class="logo-dark">
+          <div class="v3"><span class="v3-mark"></span>On<b>Site</b></div>
+        </div>
+        <div class="tag">Dark</div>
+      </div>
+      <div>
+        <div class="logo-light">
+          <div class="v3"><span class="v3-mark"></span>On<b>Site</b></div>
+        </div>
+        <div class="tag">Light</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="number">03 · Radar</div>
+      <h3 style="font-size:1.2rem;font-weight:700;margin-bottom:6px">雷达同心圆</h3>
+      <p class="desc"><strong>双重同心圆</strong> 像雷达/靶心，暗示精准定位。Outfit 圆润字体，年轻友好。抽象但有记忆点。</p>
+    </div>
+  </div>
+
+  <!-- V4: Gradient chip -->
+  <div class="card" onclick="select(this)">
+    <div class="nav">
+      <div class="v4" style="font-size:1.1rem"><span class="v4-o" style="width:24px;height:24px;font-size:0.7rem;border-radius:6px">O</span>n<b>Site</b></div>
+      <div class="dots"><span></span><span></span><span></span><span></span></div>
+    </div>
+    <div class="showcase">
+      <div>
+        <div class="logo-dark">
+          <div class="v4"><span class="v4-o">O</span>n<b>Site</b></div>
+        </div>
+        <div class="tag">Dark</div>
+      </div>
+      <div>
+        <div class="logo-light">
+          <div class="v4 v4-light"><span class="v4-o">O</span>n<b>Site</b></div>
+        </div>
+        <div class="tag">Light</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="number">04 · Gradient</div>
+      <h3 style="font-size:1.2rem;font-weight:700;margin-bottom:6px">渐变芯片</h3>
+      <p class="desc"><strong>蓝→青渐变</strong>圆角方块，内含首字母 O。DM Sans 粗体字重，高辨识度。Z 世代审美，像 Notion / Linear 的路子。</p>
+    </div>
+  </div>
+
+  <!-- V5: Ultralight + neon dot -->
+  <div class="card" onclick="select(this)">
+    <div class="nav">
+      <div class="v5" style="font-size:1.1rem"><span class="v5-on">On</span><span class="v5-site">Site</span><span class="v5-dot" style="width:4px;height:4px;top:-4px"></span></div>
+      <div class="dots"><span></span><span></span><span></span><span></span></div>
+    </div>
+    <div class="showcase">
+      <div>
+        <div class="logo-dark">
+          <div class="v5"><span class="v5-on">On</span><span class="v5-site">Site</span><span class="v5-dot"></span></div>
+        </div>
+        <div class="tag">Dark</div>
+      </div>
+      <div>
+        <div class="logo-light">
+          <div class="v5"><span class="v5-on">On</span><span class="v5-site">Site</span><span class="v5-dot"></span></div>
+        </div>
+        <div class="tag">Light</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="number">05 · Neon</div>
+      <h3 style="font-size:1.2rem;font-weight:700;margin-bottom:6px">极细体 + 霓虹点</h3>
+      <p class="desc"><strong>200 极细字重</strong> "ON" + 800 粗体 "SITE"，对比拉满。右上角蓝色小点做点缀。类似奢侈品牌 Goyard / Loewe 的克制美学。</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function select(el) {
+  document.querySelectorAll('.card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+}
+</script>
+
+</body>
+</html>

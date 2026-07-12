@@ -1,13 +1,18 @@
+'use client';
+
 import UnsplashImage from '@/components/ui/UnsplashImage';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import type { Guide } from '@/types';
 import { getGuideImage, unsplashUrl } from '@/lib/images';
+import { localizedHref } from '@/i18n/localized-link';
 
 interface GuideCardProps {
   guide: Guide;
 }
 
 export default function GuideCard({ guide }: GuideCardProps) {
+  const { lang } = useParams();
   const formattedDate = new Date(guide.date).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'short',
@@ -16,7 +21,7 @@ export default function GuideCard({ guide }: GuideCardProps) {
   const image = getGuideImage(guide.slug);
 
   return (
-    <Link href={`/guides/${guide.slug}`}>
+    <Link href={localizedHref(lang as string, `/guides/${guide.slug}`)}>
       <article className="rounded-xl overflow-hidden border border-border bg-surface shadow-sm transition hover:shadow-md">
         {/* Image thumbnail */}
         <div className="relative h-44 w-full bg-secondary/5">

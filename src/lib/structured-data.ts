@@ -1,11 +1,13 @@
 import { SITE } from './constants';
+// Locale type removed — params are typed as string by Next.js
 
 interface BreadcrumbItem {
   name: string;
   url: string;
 }
 
-export function breadcrumbLD(items: BreadcrumbItem[]) {
+export function breadcrumbLD(items: BreadcrumbItem[], locale?: string) {
+  const prefix = locale ? `/${locale}` : '';
   return {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -13,7 +15,7 @@ export function breadcrumbLD(items: BreadcrumbItem[]) {
       '@type': 'ListItem',
       position: i + 1,
       name: item.name,
-      item: `${SITE.domain}${item.url}`,
+      item: `${SITE.domain}${prefix}${item.url}`,
     })),
   };
 }
@@ -28,7 +30,7 @@ export function organizationLD() {
     contactPoint: {
       '@type': 'ContactPoint',
       contactType: 'customer service',
-      email: 'contact@sourcing-site.com',
+      email: 'contact@onsite-sourcing.com',
     },
   };
 }
@@ -37,7 +39,9 @@ export function serviceLD(
   name: string,
   description: string,
   path: string,
+  locale?: string,
 ) {
+  const prefix = locale ? `/${locale}` : '';
   return {
     '@context': 'https://schema.org',
     '@type': 'Service',
@@ -45,7 +49,7 @@ export function serviceLD(
     description,
     provider: { '@type': 'Organization', name: SITE.name },
     areaServed: { '@type': 'Country', name: 'China' },
-    url: `${SITE.domain}${path}`,
+    url: `${SITE.domain}${prefix}${path}`,
   };
 }
 

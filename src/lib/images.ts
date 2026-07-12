@@ -163,6 +163,65 @@ export function getGuideImage(slug: string) {
   };
 }
 
+// ─── City Images ──────────────────────────────────────────
+export const CITY_IMAGES: Record<string, { id: string; alt: string }> = {
+  shenzhen: {
+    id: '1753271414424-4029998d5b6a',
+    alt: 'Shenzhen city streets with scooters and urban life',
+  },
+  guangzhou: {
+    id: '1486406146926-c627a92ad1ab',
+    alt: 'Guangzhou city skyline with modern high-rise buildings',
+  },
+  dongguan: {
+    id: '1647427060118-4911c9821b82',
+    alt: 'Dongguan factory with industrial machines and equipment',
+  },
+  yiwu: {
+    id: '1759800805389-d9cdce780529',
+    alt: 'Yiwu wholesale market with people and stalls',
+  },
+  foshan: {
+    id: '1631396326838-de37e5f8bcbc',
+    alt: 'Foshan furniture manufacturing and woodworking',
+  },
+  yunnan: {
+    id: '1470087167738-6aa485ff65dc',
+    alt: 'Yunnan tea plantation with rolling green hills',
+  },
+  shaoxing: {
+    id: '1517146783983-418c681b56c5',
+    alt: 'Shaoxing textile factory with fabric manufacturing',
+  },
+  yongkang: {
+    id: '1530124566582-a618bc2615dc',
+    alt: 'Yongkang hardware and tools manufacturing',
+  },
+  ningxia: {
+    id: '1574013347134-e355cfd7b97c',
+    alt: 'Ningxia goji berries and wine production',
+  },
+  'sichuan-chongqing': {
+    id: '1564869521641-a52c75637e91',
+    alt: 'Sichuan spices and culinary ingredients',
+  },
+  ningbo: {
+    id: '1757573538081-c469f75cdd7a',
+    alt: 'Ningbo industrial port and manufacturing',
+  },
+  zhuji: {
+    id: '1597843797221-e34b4a320b97',
+    alt: 'Zhuji textile and hosiery manufacturing hub',
+  },
+};
+
+export function getCityImage(slug: string) {
+  return CITY_IMAGES[slug] || {
+    id: IMAGE_HERO.id,
+    alt: 'China manufacturing city',
+  };
+}
+
 // ─── About / Team / Contact ──────────────────────────────
 export const IMAGE_ABOUT_HERO = {
   id: '1622675363311-3e1904dc1885',

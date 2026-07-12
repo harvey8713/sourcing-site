@@ -24,6 +24,14 @@ export interface ServiceFAQ {
   answer: string;
 }
 
+export interface ServiceTier {
+  slug: 'lite' | 'standard' | 'premium';
+  name: string;          // "LITE"
+  label: string;         // "Basic guided access"
+  price: string;         // "$4,999"
+  includes: string[];    // tier-specific what's included
+}
+
 export interface Service {
   slug: string;
   title: string;
@@ -34,12 +42,11 @@ export interface Service {
   cities: string[];
   durationDays: number;
   durationLabel: string;      // e.g. "5 days"
-  price: string;              // e.g. "$2,800"
-  premiumPrice?: string;
-  premiumLabel?: string;
+  price: string;              // STANDARD tier price (backward compat)
+  tiers: [ServiceTier, ServiceTier, ServiceTier]; // LITE | STANDARD | PREMIUM
   description: string;        // SEO meta (155-160 chars)
   longDescription: string;    // hero/marketing copy
-  whatIsIncluded: string[];
+  whatIsIncluded: string[];   // STANDARD tier inclusions (backward compat)
   process: { step: number; title: string; description: string }[];
   highlights: string[];
   suitableFor: string[];
@@ -107,4 +114,34 @@ export interface StatItem {
 export interface TrustSignal {
   title: string;
   description: string;
+}
+
+// ─── City ────────────────────────────────────────────────
+export interface CityHighlight {
+  icon: string;
+  title: string;
+  description: string;
+}
+
+export interface CityFAQ {
+  question: string;
+  answer: string;
+}
+
+export interface City {
+  slug: string;
+  name: string;
+  region: string;
+  subtitle: string;
+  description: string;
+  longDescription: string;
+  industries: string[];
+  serviceCount: number;
+  gradient: string;         // CSS gradient for card background
+  badge: string;            // badge text on card
+  categories: string[];     // filter categories e.g. 'electronics', 'textile'
+  highlights: CityHighlight[];
+  suitableFor: string[];
+  notSuitableFor: string[];
+  faq: CityFAQ[];
 }

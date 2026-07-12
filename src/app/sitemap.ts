@@ -2,42 +2,66 @@ import type { MetadataRoute } from 'next';
 import { getAllServiceSlugs } from '@/data/services';
 import { getAllIndustrySlugs } from '@/data/industries';
 import { getAllGuideSlugs } from '@/data/guides';
+import { getAllCitySlugs } from '@/data/cities';
 import { SITE } from '@/lib/constants';
+import { SUPPORTED_LOCALES } from '@/i18n/types';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = SITE.domain;
 
-  const staticPages = [
-    { url: baseUrl, lastModified: new Date(), changeFrequency: 'weekly' as const, priority: 1 },
-    { url: `${baseUrl}/services`, lastModified: new Date(), changeFrequency: 'weekly' as const, priority: 0.9 },
-    { url: `${baseUrl}/how-it-works`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${baseUrl}/industries`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.8 },
-    { url: `${baseUrl}/guides`, lastModified: new Date(), changeFrequency: 'weekly' as const, priority: 0.8 },
-    { url: `${baseUrl}/about`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.6 },
-    { url: `${baseUrl}/faq`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.6 },
-    { url: `${baseUrl}/contact`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.7 },
+  const staticPaths = [
+    '',
+    '/services',
+    '/how-it-works',
+    '/industries',
+    '/guides',
+    '/about',
+    '/faq',
+    '/contact',
+    '/cities',
   ];
 
-  const servicePages = getAllServiceSlugs().map((slug) => ({
-    url: `${baseUrl}/services/${slug}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly' as const,
-    priority: 0.9,
-  }));
+  const dynamicPaths = [
+    ...getAllServiceSlugs().map((slug) => `/services/${slug}`),
+    ...getAllIndustrySlugs().map((slug) => `/industries/${slug}`),
+    ...getAllGuideSlugs().map((slug) => `/guides/${slug}`),
+    ...getAllCitySlugs().map((slug) => `/cities/${slug}`),
+  ];
 
-  const industryPages = getAllIndustrySlugs().map((slug) => ({
-    url: `${baseUrl}/industries/${slug}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly' as const,
-    priority: 0.8,
-  }));
+  const allPaths = [...staticPaths, ...dynamicPaths];
 
-  const guidePages = getAllGuideSlugs().map((slug) => ({
-    url: `${baseUrl}/guides/${slug}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly' as const,
-    priority: 0.7,
-  }));
+  // Generate entries for all locale × path combinations
+  const entries: MetadataRoute.Sitemap = [];
 
-  return [...staticPages, ...servicePages, ...industryPages, ...guidePages];
+  for (const locale of SUPPORTED_LOCALES) {
+    for (const path of allPaths) {
+      const priority =
+        path === '' ? 1 :
+        path.startsWith('/services/') ? 0.9 :
+        path === '/services' ? 0.9 :
+        path.startsWith('/cities/') ? 0.85 :
+        path === '/cities' ? 0.85 :
+        path.startsWith('/industries/') ? 0.8 :
+        path === '/industries' ? 0.8 :
+        path.startsWith('/guides/') ? 0.8 :
+        path === '/how-it-works' ? 0.8 :
+        path === '/guides' ? 0.8 :
+        path === '/faq' ? 0.6 :
+        path === '/about' ? 0.6 :
+        path === '/contact' ? 0.7 :
+        0.8;
+
+      entries.push({
+        url: `${baseUrl}/${locale}${path}`,
+        lastModified: new Date(),
+        changeFrequency: (
+          path === '' || path === '/services' ? 'weekly' :
+          path.startsWith('/guides/') ? 'monthly' : 'monthly'
+        ) as 'weekly' | 'monthly',
+        priority,
+      });
+    }
+  }
+
+  return entries;
 }

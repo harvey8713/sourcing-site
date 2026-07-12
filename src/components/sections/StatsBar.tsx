@@ -4,7 +4,7 @@ interface StatsBarProps {
 
 export default function StatsBar({ stats }: StatsBarProps) {
   return (
-    <section className="w-full bg-primary text-white py-12">
+    <section className="w-full bg-primary text-white py-3">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {stats.map((stat) => (

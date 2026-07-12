@@ -1,17 +1,22 @@
+'use client';
+
 import UnsplashImage from '@/components/ui/UnsplashImage';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import type { IndustryPage } from '@/types';
 import { getIndustryImage, unsplashUrl } from '@/lib/images';
+import { localizedHref } from '@/i18n/localized-link';
 
 interface IndustryCardProps {
   industry: IndustryPage;
 }
 
 export default function IndustryCard({ industry }: IndustryCardProps) {
+  const { lang } = useParams();
   const image = getIndustryImage(industry.slug);
 
   return (
-    <Link href={`/industries/${industry.slug}`}>
+    <Link href={localizedHref(lang as string, `/industries/${industry.slug}`)}>
       <article className="rounded-xl overflow-hidden border border-border bg-surface shadow-sm transition hover:shadow-md">
         {/* Image thumbnail */}
         <div className="relative h-44 w-full bg-secondary/5">

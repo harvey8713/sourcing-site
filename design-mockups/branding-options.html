@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Branding Options</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', 'Noto Sans SC', sans-serif;
+    background: #f5f5f5;
+    color: #1a1a1a;
+    padding: 40px 20px;
+  }
+  h1 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 8px;
+    font-weight: 800;
+  }
+  .subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 48px;
+    font-size: 0.95rem;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+    gap: 24px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid #e5e5e5;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+  }
+
+  /* ---- Header bar / nav simulation ---- */
+  .nav-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    border-bottom: 1px solid #f0f0f0;
+    background: #fafafa;
+  }
+  .nav-links {
+    display: flex;
+    gap: 18px;
+  }
+  .nav-links span {
+    font-size: 0.8rem;
+    color: #999;
+  }
+
+  /* ---- Each brand's logo treatment ---- */
+  /* A: SourcingPro */
+  .logo-a { font-size: 1.25rem; }
+  .logo-a b { color: #1565C0; }
+  .logo-a span { color: #333; font-weight: 600; }
+
+  /* B: MillCheck */
+  .logo-b { font-size: 1.3rem; font-weight: 800; color: #2c3e50; display: flex; align-items: center; gap: 6px; }
+  .logo-b .gear {
+    width: 22px; height: 22px;
+    border: 3px solid #f39c12;
+    border-radius: 50%;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .logo-b .gear::after {
+    content: '';
+    width: 6px; height: 6px;
+    background: #f39c12;
+    border-radius: 50%;
+  }
+  .logo-b span:last-child { color: #f39c12; }
+
+  /* C: OnSite */
+  .logo-c { font-size: 1.3rem; }
+  .logo-c .on { font-weight: 300; color: #111; }
+  .logo-c .site { font-weight: 800; color: #111; }
+  .logo-c .pin {
+    display: inline-block;
+    width: 16px; height: 16px;
+    background: #e74c3c;
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    margin-right: 4px;
+    vertical-align: middle;
+    position: relative;
+    top: -2px;
+  }
+  .logo-c .pin::after {
+    content: '';
+    width: 6px; height: 6px;
+    background: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 5px; left: 5px;
+    transform: rotate(45deg);
+  }
+
+  /* D: Guanxi Supply */
+  .logo-d { font-size: 1.25rem; display: flex; align-items: baseline; gap: 6px; }
+  .logo-d .guanxi { font-weight: 700; color: #c0392b; letter-spacing: -0.3px; }
+  .logo-d .supply { font-weight: 400; color: #555; font-size: 0.9rem; }
+  .logo-d .cn { font-family: 'Noto Sans SC'; font-weight: 700; color: #c0392b; font-size: 0.85rem; margin-left: 2px; }
+
+  /* E: Yardstick */
+  .logo-e { font-size: 1.3rem; font-weight: 800; color: #1a1a1a; letter-spacing: -0.5px; }
+  .logo-e .y {
+    color: #1565C0;
+    display: inline-block;
+    position: relative;
+  }
+  .logo-e .y::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: repeating-linear-gradient(90deg, #1565C0 0px, #1565C0 4px, white 4px, white 6px);
+    border-radius: 1px;
+  }
+
+  /* ---- Body of card ---- */
+  .card-body {
+    padding: 24px 20px;
+  }
+  .name {
+    font-size: 1.6rem;
+    font-weight: 800;
+    margin-bottom: 4px;
+  }
+  .tagline {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 16px;
+  }
+  .meta {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+  }
+  .meta-item {
+    background: #f8f8f8;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.78rem;
+    color: #555;
+  }
+  .why {
+    background: #f0f7ff;
+    border-left: 3px solid #1565C0;
+    padding: 10px 14px;
+    border-radius: 0 6px 6px 0;
+    font-size: 0.82rem;
+    color: #445;
+    line-height: 1.5;
+    margin-top: 12px;
+  }
+
+  /* ---- Footer mini ---- */
+  .card-footer {
+    padding: 14px 20px;
+    border-top: 1px solid #f0f0f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    color: #999;
+  }
+  .card-footer .domain { color: #1565C0; font-weight: 500; }
+
+  /* Direction labels */
+  .direction {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #1565C0;
+    margin-bottom: 8px;
+  }
+</style>
+</head>
+<body>
+
+<h1>Choose Your Brand</h1>
+<p class="subtitle">Click a card to toggle selection — your pick becomes the live site identity</p>
+
+<div class="grid">
+
+  <!-- A: SourcingPro -->
+  <div class="card" onclick="this.classList.toggle('selected')" style="cursor:pointer">
+    <div class="nav-bar">
+      <div class="logo-a"><b>Sourcing</b><span>Pro</span></div>
+      <div class="nav-links"><span>Services</span><span>Explore</span><span>Pricing</span><span>Contact</span></div>
+    </div>
+    <div class="card-body">
+      <div class="direction">Direction A · Upgrade</div>
+      <div class="name">SourcingPro</div>
+      <div class="tagline">Factory audits &amp; sourcing trips across China</div>
+      <div class="meta">
+        <span class="meta-item">domain: sourcingpro.com</span>
+        <span class="meta-item">简洁专业</span>
+        <span class="meta-item">"Site" → "Pro"</span>
+      </div>
+      <div class="why">Pro = professional. 保留原名基础，一步升级。客户一看就知道你比普通 sourcing site 更专业。</div>
+    </div>
+    <div class="card-footer">
+      <span>© 2026</span>
+      <span class="domain">sourcingpro.com</span>
+    </div>
+  </div>
+
+  <!-- B: MillCheck -->
+  <div class="card" onclick="this.classList.toggle('selected')" style="cursor:pointer">
+    <div class="nav-bar">
+      <div class="logo-b"><span class="gear"></span><span>Mill</span><span>Check</span></div>
+      <div class="nav-links"><span>Services</span><span>Explore</span><span>Pricing</span><span>Contact</span></div>
+    </div>
+    <div class="card-body">
+      <div class="direction">Direction B · Factory</div>
+      <div class="name">MillCheck</div>
+      <div class="tagline">Your eyes inside Chinese factories</div>
+      <div class="meta">
+        <span class="meta-item">domain: millcheck.com</span>
+        <span class="meta-item">Mill = 工厂</span>
+        <span class="meta-item">Check = 核查</span>
+        <span class="meta-item">变体: MillProof, SourceMill</span>
+      </div>
+      <div class="why">一句话就知道你做什么。Mill 在英语中天然指代制造业工厂，Check 强调审计职能。搭配齿轮图标，工业感强。</div>
+    </div>
+    <div class="card-footer">
+      <span>© 2026</span>
+      <span class="domain">millcheck.com</span>
+    </div>
+  </div>
+
+  <!-- C: OnSite -->
+  <div class="card" onclick="this.classList.toggle('selected')" style="cursor:pointer">
+    <div class="nav-bar">
+      <div class="logo-c"><span class="pin"></span><span class="on">On</span><span class="site">Site</span></div>
+      <div class="nav-links"><span>Services</span><span>Explore</span><span>Pricing</span><span>Contact</span></div>
+    </div>
+    <div class="card-body">
+      <div class="direction">Direction C · Trust</div>
+      <div class="name">OnSite</div>
+      <div class="tagline">Verified Chinese manufacturing, factory floor to your hands</div>
+      <div class="meta">
+        <span class="meta-item">domain: onsite-sourcing.com</span>
+        <span class="meta-item">双关: 现场/实地</span>
+        <span class="meta-item">行业通用语</span>
+        <span class="meta-item">变体: OnGround, SiteCheck</span>
+      </div>
+      <div class="why">"On Site" 是采购圈最常用的词——客户每天都听到 "we'll be on site tomorrow"。天然信任感，无需解释。定位 pin 图标一眼识别。</div>
+    </div>
+    <div class="card-footer">
+      <span>© 2026</span>
+      <span class="domain">onsite-sourcing.com</span>
+    </div>
+  </div>
+
+  <!-- D: Guanxi Supply -->
+  <div class="card" onclick="this.classList.toggle('selected')" style="cursor:pointer">
+    <div class="nav-bar">
+      <div class="logo-d">
+        <span class="guanxi">Guanxi</span>
+        <span class="supply">Supply</span>
+        <span class="cn">关系</span>
+      </div>
+      <div class="nav-links"><span>Services</span><span>Explore</span><span>Pricing</span><span>Contact</span></div>
+    </div>
+    <div class="card-body">
+      <div class="direction">Direction D · Cultural</div>
+      <div class="name">Guanxi Supply</div>
+      <div class="tagline">Real relationships, real factories</div>
+      <div class="meta">
+        <span class="meta-item">domain: guanxisupply.com</span>
+        <span class="meta-item">关系 = 人脉</span>
+        <span class="meta-item">强辨识度</span>
+        <span class="meta-item">变体: LongSource, Jiancha</span>
+      </div>
+      <div class="why">"Guanxi" 在国际商业语境中已被广泛认知——没有关系在中国寸步难行。这名字暗示你在当地有深厚人脉，差异化极强，有故事可讲。</div>
+    </div>
+    <div class="card-footer">
+      <span>© 2026</span>
+      <span class="domain">guanxisupply.com</span>
+    </div>
+  </div>
+
+  <!-- E: Yardstick -->
+  <div class="card" onclick="this.classList.toggle('selected')" style="cursor:pointer">
+    <div class="nav-bar">
+      <div class="logo-e"><span class="y">Y</span>ardstick</div>
+      <div class="nav-links"><span>Services</span><span>Explore</span><span>Pricing</span><span>Contact</span></div>
+    </div>
+    <div class="card-body">
+      <div class="direction">Direction E · Brand</div>
+      <div class="name">Yardstick</div>
+      <div class="tagline">Measure your suppliers before you commit</div>
+      <div class="meta">
+        <span class="meta-item">domain: yardstick.cc</span>
+        <span class="meta-item">标尺 = 衡量的标准</span>
+        <span class="meta-item">品牌感最强</span>
+        <span class="meta-item">需一点解释成本</span>
+      </div>
+      <div class="why">"Yardstick" = 衡量标准。你帮客户建立评估供应商的标尺。有寓意，品牌感强，可注册商标。Y 字母天然适合做成尺子图案。</div>
+    </div>
+    <div class="card-footer">
+      <span>© 2026</span>
+      <span class="domain">yardstick.cc</span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('click', function() {
+        // Deselect all
+        document.querySelectorAll('.card.selected').forEach(c => {
+          if (c !== this) c.classList.remove('selected');
+        });
+        this.classList.toggle('selected');
+      });
+    });
+  });
+</script>
+
+<style>
+  .card.selected {
+    border: 2px solid #1565C0;
+    box-shadow: 0 0 0 4px rgba(21,101,192,0.12), 0 8px 30px rgba(0,0,0,0.06);
+    transform: translateY(-3px);
+  }
+</style>
+</body>
+</html>

@@ -2,6 +2,7 @@ import type { NavLink, StatItem, TrustSignal } from '@/types';
 
 export const NAV_LINKS: NavLink[] = [
   { label: 'Services', href: '/services' },
+  { label: 'Explore China', href: '/cities' },
   { label: 'How It Works', href: '/how-it-works' },
   { label: 'Industries', href: '/industries' },
   { label: 'Guides', href: '/guides' },
@@ -35,7 +36,7 @@ export const TRUST_SIGNALS: TrustSignal[] = [
 ];
 
 export const CONTACT = {
-  email: 'contact@sourcing-site.com',
-  wechat: 'SourcingSite001',
-  whatsapp: '+86-xxx-xxxx-xxxx',
+  email: 'contact@onsite-sourcing.com',
+  wechat: 'OnSiteSourcing',
+  whatsapp: '+8613918318713',
 };

@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Homepage V1 — Trust-First (Withlocals inspired)</title>
+<style>
+  :root {
+    --gold: #B8860B;
+    --gold-hover: #9A7209;
+    --navy: #1A1A2E;
+    --bg: #F5F5F0;
+    --white: #FFFFFF;
+    --green: #2E7D32;
+    --text: #1A1A2E;
+    --text-secondary: #5A5A6E;
+    --border: #E0DDD8;
+    --radius: 12px;
+    --radius-lg: 16px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
+    --shadow-lg: 0 4px 24px rgba(0,0,0,0.08);
+    --max-width: 1200px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: var(--max-width); margin: 0 auto; padding: 0 24px; }
+
+  /* ─── NAV ─── */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(255,255,255,0.92); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 68px; max-width: var(--max-width); margin: 0 auto; padding: 0 24px;
+  }
+  .nav-logo { font-size: 1.35rem; font-weight: 800; color: var(--navy); letter-spacing: -0.5px; }
+  .nav-logo span { color: var(--gold); }
+  .nav-links { display: flex; align-items: center; gap: 32px; }
+  .nav-links a {
+    text-decoration: none; color: var(--text-secondary); font-size: 0.9rem;
+    font-weight: 500; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta {
+    background: var(--gold); color: white !important;
+    padding: 10px 22px; border-radius: 8px; font-weight: 600 !important;
+    transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--gold-hover); }
+
+  /* ─── HERO ─── */
+  .hero {
+    position: relative; overflow: hidden;
+    background: linear-gradient(135deg, var(--navy) 0%, #2a2a4e 50%, var(--navy) 100%);
+    color: white; padding: 100px 0 80px;
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(255,255,255,0.03)" d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"/></svg>') bottom/cover no-repeat;
+    pointer-events: none;
+  }
+  .hero-inner { max-width: var(--max-width); margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(184,134,11,0.2); border: 1px solid rgba(184,134,11,0.3);
+    color: var(--gold); padding: 6px 16px; border-radius: 100px;
+    font-size: 0.85rem; font-weight: 600; margin-bottom: 28px;
+  }
+  .hero-badge::before { content: '●'; font-size: 8px; color: var(--green); }
+  .hero h1 { font-size: 3.2rem; font-weight: 800; line-height: 1.15; margin-bottom: 20px; max-width: 680px; letter-spacing: -1px; }
+  .hero p { font-size: 1.15rem; color: rgba(255,255,255,0.7); max-width: 540px; line-height: 1.7; margin-bottom: 36px; }
+  .hero-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 14px 28px; border-radius: 10px; font-weight: 600;
+    font-size: 0.95rem; cursor: pointer; border: none; text-decoration: none;
+    transition: all 0.2s;
+  }
+  .btn-primary { background: var(--gold); color: white; }
+  .btn-primary:hover { background: var(--gold-hover); transform: translateY(-1px); }
+  .btn-outline { background: transparent; color: white; border: 1.5px solid rgba(255,255,255,0.3); }
+  .btn-outline:hover { border-color: rgba(255,255,255,0.6); background: rgba(255,255,255,0.05); }
+
+  /* ─── SEARCH BAR ─── */
+  .search-section { margin-top: -32px; position: relative; z-index: 10; }
+  .search-bar {
+    background: white; border-radius: var(--radius-lg); padding: 20px 24px;
+    box-shadow: var(--shadow-lg); display: flex; align-items: center; gap: 16px;
+    border: 1px solid var(--border);
+  }
+  .search-field {
+    flex: 1; display: flex; align-items: center; gap: 10px; padding: 10px 16px;
+    background: var(--bg); border-radius: 10px; border: 1px solid transparent;
+    transition: border-color 0.2s;
+  }
+  .search-field:focus-within { border-color: var(--gold); background: white; }
+  .search-field svg { flex-shrink: 0; color: var(--text-secondary); }
+  .search-field input {
+    border: none; background: none; outline: none; font-size: 0.95rem;
+    width: 100%; color: var(--text);
+  }
+  .search-field input::placeholder { color: #999; }
+  .search-divider { width: 1px; height: 28px; background: var(--border); }
+
+  /* ─── TRUST BAR ─── */
+  .trust-bar {
+    display: flex; align-items: center; justify-content: center; gap: 48px;
+    padding: 28px 0; flex-wrap: wrap;
+  }
+  .trust-item { text-align: center; }
+  .trust-item .value { font-size: 1.75rem; font-weight: 800; color: var(--gold); line-height: 1.2; }
+  .trust-item .label { font-size: 0.8rem; color: var(--text-secondary); font-weight: 500; margin-top: 2px; }
+
+  /* ─── SECTION ─── */
+  section { padding: 80px 0; }
+  .section-header { text-align: center; margin-bottom: 48px; }
+  .section-header .label {
+    display: inline-block; color: var(--gold); font-weight: 700; font-size: 0.8rem;
+    text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px;
+  }
+  .section-header h2 { font-size: 2.2rem; font-weight: 800; margin-bottom: 12px; letter-spacing: -0.5px; }
+  .section-header p { color: var(--text-secondary); max-width: 520px; margin: 0 auto; font-size: 1.05rem; }
+
+  /* ─── SERVICES GRID ─── */
+  .services-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 24px;
+  }
+  .service-card {
+    background: white; border-radius: var(--radius-lg); overflow: hidden;
+    border: 1px solid var(--border); transition: all 0.3s; cursor: pointer;
+    display: flex; flex-direction: column;
+  }
+  .service-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: transparent; }
+  .service-card-img {
+    height: 200px; position: relative; overflow: hidden;
+    background: linear-gradient(135deg, #e8d5b7, #d4a853);
+  }
+  .service-card-img .badge {
+    position: absolute; top: 16px; left: 16px;
+    background: white; color: var(--text); padding: 4px 12px;
+    border-radius: 100px; font-size: 0.75rem; font-weight: 600;
+  }
+  .service-card-img .duration {
+    position: absolute; bottom: 16px; right: 16px;
+    background: rgba(0,0,0,0.7); color: white; padding: 4px 10px;
+    border-radius: 6px; font-size: 0.75rem; font-weight: 600;
+  }
+  .service-card-body { padding: 20px 24px 24px; flex: 1; display: flex; flex-direction: column; }
+  .service-card-body .category { color: var(--gold); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .service-card-body h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 8px; line-height: 1.35; }
+  .service-card-body .desc { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin-bottom: 16px; flex: 1; }
+  .service-card-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 16px; border-top: 1px solid var(--border); }
+  .service-card-footer .price { font-weight: 800; color: var(--text); font-size: 1.1rem; }
+  .service-card-footer .price small { font-weight: 400; color: var(--text-secondary); font-size: 0.8rem; }
+  .service-card-footer .cta-link { color: var(--gold); font-weight: 600; font-size: 0.9rem; text-decoration: none; }
+  .service-card-footer .cta-link:hover { text-decoration: underline; }
+
+  /* ─── TRUST SECTION ─── */
+  .trust-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+  }
+  .trust-card {
+    text-align: center; padding: 36px 24px;
+    background: white; border-radius: var(--radius-lg); border: 1px solid var(--border);
+  }
+  .trust-card .icon {
+    width: 56px; height: 56px; margin: 0 auto 16px;
+    background: rgba(184,134,11,0.1); border-radius: 14px;
+    display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
+  }
+  .trust-card h4 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+  .trust-card p { color: var(--text-secondary); font-size: 0.85rem; line-height: 1.55; }
+
+  /* ─── TESTIMONIALS ─── */
+  .testimonial-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  }
+  .testimonial-card {
+    background: white; border-radius: var(--radius-lg); padding: 28px;
+    border: 1px solid var(--border);
+  }
+  .testimonial-card .stars { color: var(--gold); font-size: 1.1rem; margin-bottom: 16px; letter-spacing: 2px; }
+  .testimonial-card .quote { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.7; margin-bottom: 20px; font-style: italic; }
+  .testimonial-card .author { display: flex; align-items: center; gap: 12px; }
+  .testimonial-card .avatar {
+    width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), #d4a853);
+    color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem;
+  }
+  .testimonial-card .name { font-weight: 700; font-size: 0.9rem; }
+  .testimonial-card .role { color: var(--text-secondary); font-size: 0.8rem; }
+
+  /* ─── CTA SECTION ─── */
+  .cta-section {
+    background: var(--navy); color: white; text-align: center;
+    border-radius: var(--radius-lg); padding: 64px 48px; margin: 0 24px;
+  }
+  .cta-section h2 { font-size: 2rem; font-weight: 800; margin-bottom: 12px; }
+  .cta-section p { color: rgba(255,255,255,0.65); max-width: 500px; margin: 0 auto 28px; font-size: 1.05rem; }
+  .cta-section .btn-primary { padding: 16px 36px; font-size: 1rem; }
+
+  /* ─── GUIDE CARDS ─── */
+  .guide-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px;
+  }
+  .guide-card {
+    background: white; border-radius: var(--radius); padding: 24px;
+    border: 1px solid var(--border); transition: all 0.2s;
+  }
+  .guide-card:hover { box-shadow: var(--shadow-lg); border-color: transparent; }
+  .guide-card .g-icon { font-size: 1.5rem; margin-bottom: 16px; }
+  .guide-card h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 6px; }
+  .guide-card .meta { font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 10px; }
+  .guide-card .excerpt { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.55; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--navy); color: white; padding: 64px 0 32px; margin-top: 80px;
+  }
+  footer .container { max-width: var(--max-width); margin: 0 auto; padding: 0 24px; }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; }
+  .footer-brand p { color: rgba(255,255,255,0.55); font-size: 0.9rem; line-height: 1.7; margin-top: 14px; max-width: 280px; }
+  .footer-col h4 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px; color: rgba(255,255,255,0.45); }
+  .footer-col a {
+    display: block; color: rgba(255,255,255,0.7); text-decoration: none;
+    font-size: 0.9rem; padding: 4px 0; transition: color 0.2s;
+  }
+  .footer-col a:hover { color: var(--gold); }
+  .footer-bottom {
+    margin-top: 48px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.1);
+    text-align: center; color: rgba(255,255,255,0.35); font-size: 0.82rem;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hero h1 { font-size: 2.2rem; }
+    .trust-grid, .testimonial-grid { grid-template-columns: repeat(2, 1fr); }
+    .search-divider { display: none; }
+    .search-bar { flex-direction: column; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    section { padding: 56px 0; }
+  }
+  @media (max-width: 480px) {
+    .trust-grid, .testimonial-grid, .services-grid { grid-template-columns: 1fr; }
+    .trust-bar { gap: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-logo">Sourcing<span>Site</span></div>
+    <div class="nav-links">
+      <a href="#">Services</a>
+      <a href="#">How It Works</a>
+      <a href="#">Industries</a>
+      <a href="#">Guides</a>
+      <a href="#">About</a>
+      <a href="#" class="nav-cta">Get Started</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">Now accepting Q3 2026 sourcing trips</div>
+    <h1>China factory sourcing,<br>boots on the ground.</h1>
+    <p>We physically visit factories across China so you don't have to. Verified suppliers, transparent audits, and a local team that speaks your language.</p>
+    <div class="hero-actions">
+      <a href="#" class="btn btn-primary">Explore Services →</a>
+      <a href="#" class="btn btn-outline">How It Works</a>
+    </div>
+  </div>
+</section>
+
+<!-- SEARCH BAR -->
+<div class="search-section">
+  <div class="container">
+    <div class="search-bar">
+      <div class="search-field">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="text" placeholder="What are you looking to source?">
+      </div>
+      <div class="search-divider"></div>
+      <div class="search-field" style="flex: 0.6">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        <input type="text" placeholder="City or region">
+      </div>
+      <a href="#" class="btn btn-primary" style="white-space:nowrap">Find Services</a>
+    </div>
+  </div>
+</div>
+
+<!-- TRUST BAR -->
+<div class="container">
+  <div class="trust-bar">
+    <div class="trust-item"><div class="value">1,200+</div><div class="label">Factories Audited</div></div>
+    <div class="trust-item"><div class="value">60+</div><div class="label">Chinese Cities Visited</div></div>
+    <div class="trust-item"><div class="value">500+</div><div class="label">Clients Worldwide</div></div>
+    <div class="trust-item"><div class="value">98%</div><div class="label">Client Satisfaction</div></div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section>
+  <div class="container">
+    <div class="section-header">
+      <div class="label">Our Services</div>
+      <h2>Factory sourcing trips, done right</h2>
+      <p>From electronics to textiles, we organize end-to-end supplier verification trips in China's manufacturing hubs.</p>
+    </div>
+    <div class="services-grid">
+      <!-- Card 1 -->
+      <div class="service-card">
+        <div class="service-card-img" style="background:linear-gradient(135deg,#2c3e50,#3498db)">
+          <span class="badge">Electronics</span>
+          <span class="duration">5 days</span>
+        </div>
+        <div class="service-card-body">
+          <div class="category">Electronics Sprint</div>
+          <h3>Shenzhen Electronics Sprint</h3>
+          <p class="desc">Deep dive into Huaqiangbei, OEM factories, and the Shenzhen hardware ecosystem.</p>
+          <div class="service-card-footer">
+            <div class="price">From $3,200 <small>/ trip</small></div>
+            <a href="#" class="cta-link">View details →</a>
+          </div>
+        </div>
+      </div>
+      <!-- Card 2 -->
+      <div class="service-card">
+        <div class="service-card-img" style="background:linear-gradient(135deg,#8e44ad,#c39bd3)">
+          <span class="badge">Consumer Goods</span>
+          <span class="duration">7 days</span>
+        </div>
+        <div class="service-card-body">
+          <div class="category">Multi-City Sprint</div>
+          <h3>Yiwu + Guangzhou Mega Sprint</h3>
+          <p class="desc">Two-city combo covering Yiwu's wholesale markets and Guangzhou's manufacturing clusters.</p>
+          <div class="service-card-footer">
+            <div class="price">From $4,500 <small>/ trip</small></div>
+            <a href="#" class="cta-link">View details →</a>
+          </div>
+        </div>
+      </div>
+      <!-- Card 3 -->
+      <div class="service-card">
+        <div class="service-card-img" style="background:linear-gradient(135deg,#27ae60,#2ecc71)">
+          <span class="badge">Apparel</span>
+          <span class="duration">4 days</span>
+        </div>
+        <div class="service-card-body">
+          <div class="category">Textile Sprint</div>
+          <h3>Guangzhou Textile District Sprint</h3>
+          <p class="desc">Zhongda fabric market visits, garment factory audits, and sampling coordination.</p>
+          <div class="service-card-footer">
+            <div class="price">From $2,800 <small>/ trip</small></div>
+            <a href="#" class="cta-link">View details →</a>
+          </div>
+        </div>
+      </div>
+      <!-- Card 4 -->
+      <div class="service-card">
+        <div class="service-card-img" style="background:linear-gradient(135deg,#c0392b,#e74c3c)">
+          <span class="badge">Furniture</span>
+          <span class="duration">5 days</span>
+        </div>
+        <div class="service-card-body">
+          <div class="category">Industry Sprint</div>
+          <h3>Foshan Furniture Sprint</h3>
+          <p class="desc">Visit the world's largest furniture manufacturing cluster with material quality audits.</p>
+          <div class="service-card-footer">
+            <div class="price">From $3,000 <small>/ trip</small></div>
+            <a href="#" class="cta-link">View details →</a>
+          </div>
+        </div>
+      </div>
+      <!-- Card 5 -->
+      <div class="service-card">
+        <div class="service-card-img" style="background:linear-gradient(135deg,#d4a853,#e8d5b7)">
+          <span class="badge">Electronics</span>
+          <span class="duration">3 days</span>
+        </div>
+        <div class="service-card-body">
+          <div class="category">Supplier Verification</div>
+          <h3>Remote Supplier Verification</h3>
+          <p class="desc">We visit factories on your behalf. Full audit report with photos, videos, and certification check.</p>
+          <div class="service-card-footer">
+            <div class="price">From $1,500 <small>/ audit</small></div>
+            <a href="#" class="cta-link">View details →</a>
+          </div>
+        </div>
+      </div>
+      <!-- Card 6 -->
+      <div class="service-card">
+        <div class="service-card-img" style="background:linear-gradient(135deg,#1a1a2e,#2c3e50)">
+          <span class="badge">Multi-Industry</span>
+          <span class="duration">Custom</span>
+        </div>
+        <div class="service-card-body">
+          <div class="category">Custom</div>
+          <h3>Custom Sourcing Trip</h3>
+          <p class="desc">We build a tailored itinerary around your specific product, budget, and certification needs.</p>
+          <div class="service-card-footer">
+            <div class="price">Custom <small>quote</small></div>
+            <a href="#" class="cta-link">Contact us →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST SIGNALS -->
+<section style="background:white; padding:80px 0;">
+  <div class="container">
+    <div class="section-header">
+      <div class="label">Why Work With Us</div>
+      <h2>You need suppliers you can trust.<br>We make that happen.</h2>
+      <p>No remote verification, no virtual tours — boots on the ground in every factory we audit.</p>
+    </div>
+    <div class="trust-grid">
+      <div class="trust-card">
+        <div class="icon">👟</div>
+        <h4>On-the-Ground</h4>
+        <p>We actually visit every factory. No virtual tours — real people, real inspections.</p>
+      </div>
+      <div class="trust-card">
+        <div class="icon">🗣️</div>
+        <h4>Bilingual Team</h4>
+        <p>Native Mandarin and English fluency. Zero lost-in-translation moments.</p>
+      </div>
+      <div class="trust-card">
+        <div class="icon">📋</div>
+        <h4>Structured Process</h4>
+        <p>Our 5-step methodology is based on 15+ years of supply chain auditing experience.</p>
+      </div>
+      <div class="trust-card">
+        <div class="icon">🔍</div>
+        <h4>Full Transparency</h4>
+        <p>Raw photos, videos, and unedited assessments — never curated marketing.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section>
+  <div class="container">
+    <div class="section-header">
+      <div class="label">Client Stories</div>
+      <h2>Trusted by importers worldwide</h2>
+      <p>Real feedback from clients who found their manufacturing partners through us.</p>
+    </div>
+    <div class="testimonial-grid">
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="quote">"Saved us 3 months of supplier research. They identified two factories we never would have found on Alibaba and both passed our internal audit with flying colors."</p>
+        <div class="author">
+          <div class="avatar">MK</div>
+          <div>
+            <div class="name">Mark K.</div>
+            <div class="role">CTO, IoT Hardware Startup</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="quote">"The Huaqiangbei tour alone was worth the trip. Having someone who speaks both engineering and Mandarin walk you through component sourcing is invaluable."</p>
+        <div class="author">
+          <div class="avatar">SL</div>
+          <div>
+            <div class="name">Sarah L.</div>
+            <div class="role">Product Manager, Consumer Electronics</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="quote">"We import textiles monthly and thought we knew the market. Their audit uncovered quality issues at two of our existing suppliers that saved us $50k in potential rejects."</p>
+        <div class="author">
+          <div class="avatar">JR</div>
+          <div>
+            <div class="name">James R.</div>
+            <div class="role">CEO, Apparel Brand</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GUIDES -->
+<section style="background:white;">
+  <div class="container">
+    <div class="section-header">
+      <div class="label">Free Resources</div>
+      <h2>Sourcing guides & insights</h2>
+      <p>Everything you need to know about sourcing from China — written by people who actually do it.</p>
+    </div>
+    <div class="guide-grid">
+      <div class="guide-card">
+        <div class="g-icon">🏭</div>
+        <h4>How to Visit a Chinese Factory</h4>
+        <div class="meta">8 min read · Guide</div>
+        <p class="excerpt">What to look for during a factory visit — from production line organization to quality control processes.</p>
+      </div>
+      <div class="guide-card">
+        <div class="g-icon">💰</div>
+        <h4>The Real Cost of Sourcing from China</h4>
+        <div class="meta">10 min read · Guide</div>
+        <p class="excerpt">Beyond the unit price: shipping, tariffs, QC, and the hidden costs importers often overlook.</p>
+      </div>
+      <div class="guide-card">
+        <div class="g-icon">🎪</div>
+        <h4>Canton Fair Survival Guide</h4>
+        <div class="meta">12 min read · Guide</div>
+        <p class="excerpt">Navigate the world's largest trade fair like a pro. Booth strategy, interpreter tips, and follow-up tactics.</p>
+      </div>
+      <div class="guide-card">
+        <div class="g-icon">🔬</div>
+        <h4>Supplier Verification Checklist</h4>
+        <div class="meta">6 min read · Checklist</div>
+        <p class="excerpt">The 23-point checklist we use to vet every supplier — free to download and use on your own visits.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section>
+  <div class="container">
+    <div class="cta-section">
+      <h2>Ready to find your manufacturing partner?</h2>
+      <p>Tell us what you're looking to source and we'll build a trip around your needs. No commitment — just a conversation.</p>
+      <a href="#" class="btn btn-primary">Start Your Sourcing Journey →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo" style="color:white">Sourcing<span style="color:var(--gold)">Site</span></div>
+        <p>We help international buyers find, verify, and build relationships with manufacturers across China.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <a href="#">Electronics Sourcing</a>
+        <a href="#">Supplier Verification</a>
+        <a href="#">Factory Audits</a>
+        <a href="#">Custom Trips</a>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <a href="#">Sourcing Guides</a>
+        <a href="#">Industry Reports</a>
+        <a href="#">FAQ</a>
+        <a href="#">Blog</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="#">About Us</a>
+        <a href="#">Contact</a>
+        <a href="#">Careers</a>
+      </div>
+    </div>
+    <div class="footer-bottom">&copy; 2026 SourcingSite. All rights reserved.</div>
+  </div>
+</footer>
+
+</body>
+</html>

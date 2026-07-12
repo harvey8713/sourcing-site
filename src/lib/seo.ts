@@ -1,7 +1,19 @@
 import type { Metadata } from 'next';
 import { SITE } from './constants';
+import { SUPPORTED_LOCALES } from '@/i18n/types';
+const LOCALE_OG_MAP: Record<string, string> = {
+  en: 'en_US',
+  fr: 'fr_FR',
+  de: 'de_DE',
+  it: 'it_IT',
+  ko: 'ko_KR',
+  ru: 'ru_RU',
+};
 
-export function baseMetadata(overrides: Partial<Metadata> = {}): Metadata {
+export function baseMetadata(
+  locale: string = 'en',
+  overrides: Partial<Metadata> = {}
+): Metadata {
   return {
     metadataBase: new URL(SITE.domain),
     title: {
@@ -9,18 +21,20 @@ export function baseMetadata(overrides: Partial<Metadata> = {}): Metadata {
       template: `%s | ${SITE.name}`,
     },
     description:
-      'On-the-ground factory audits, supplier verification, and sourcing trips across China. We visit factories in Shenzhen, Guangzhou, Yiwu, and beyond so you don’t have to.',
+      'OnSite — your eyes inside Chinese factories. Factory audits, supplier verification, and guided sourcing trips across China.',
     keywords: [
       'China sourcing agent',
       'China factory audit',
       'supplier verification China',
       'China sourcing trip',
       'on-site factory inspection',
+      'China factory tour',
+      'sourcing trip China',
     ],
     openGraph: {
       type: 'website',
       siteName: SITE.name,
-      locale: 'en_US',
+      locale: LOCALE_OG_MAP[locale] || 'en_US',
     },
     twitter: {
       card: 'summary_large_image',
@@ -38,13 +52,21 @@ export function pageMeta(
   description: string,
   keywords: string[],
   path: string,
+  locale: string = 'en',
 ): Metadata {
-  return baseMetadata({
+  const localizedPath = `/${locale}${path}`;
+
+  return baseMetadata(locale, {
     title,
     description,
     keywords,
-    openGraph: { title, description, url: path },
+    openGraph: { title, description, url: localizedPath },
     twitter: { title, description },
-    alternates: { canonical: path },
+    alternates: {
+      canonical: localizedPath,
+      languages: Object.fromEntries(
+        SUPPORTED_LOCALES.map((l) => [l, `/${l}${path}`])
+      ),
+    },
   });
 }

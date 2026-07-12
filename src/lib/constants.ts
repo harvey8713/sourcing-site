@@ -56,9 +56,9 @@ export const INDUSTRY_META: Record<
 };
 
 export const SITE = {
-  name: 'Supply Chain Due Diligence',
-  domain: 'https://sourcing-site.com',
-  tagline: 'On-the-ground factory audits and sourcing trips across China',
+  name: 'OnSite',
+  domain: 'https://onsite-sourcing.com',
+  tagline: 'Your eyes inside Chinese factories',
 };
 
 export const PROCESS_STEPS = [
