@@ -6,6 +6,7 @@ import Footer from '@/components/layout/Footer';
 import { organizationLD } from '@/lib/structured-data';
 import { loadDictionary } from '@/i18n/server';
 import { DictionaryProvider } from '@/i18n/dictionary-context';
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 export function generateStaticParams() {
   return SUPPORTED_LOCALES.map((lang) => ({ lang }));
@@ -71,6 +72,7 @@ export default async function LangLayout({
         <main className="flex-1">{children}</main>
         <Footer lang={locale} dict={dict} />
       </DictionaryProvider>
+      <SpeedInsights />
     </>
   );
 }
