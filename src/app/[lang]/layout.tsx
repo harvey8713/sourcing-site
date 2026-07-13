@@ -7,6 +7,7 @@ import { organizationLD } from '@/lib/structured-data';
 import { loadDictionary } from '@/i18n/server';
 import { DictionaryProvider } from '@/i18n/dictionary-context';
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import { Analytics } from "@vercel/analytics/next"
 
 export function generateStaticParams() {
   return SUPPORTED_LOCALES.map((lang) => ({ lang }));
@@ -73,6 +74,7 @@ export default async function LangLayout({
         <Footer lang={locale} dict={dict} />
       </DictionaryProvider>
       <SpeedInsights />
+      <Analytics />
     </>
   );
 }
